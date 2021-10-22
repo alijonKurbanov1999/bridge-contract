@@ -55,15 +55,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal__confirm {
+  @include font-default;
   position: fixed;
   top: 25%;
   left: 50%;
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
+  /*font-family: Montserrat, sans-serif;*/
+  /*font-style: normal;*/
+  /*font-weight: 500;*/
+  /*font-size: 16px;*/
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -100,10 +101,11 @@ export default {
   height: 60px;
 }
 .exchange-items {
-  width: 250px;
+  width: 300px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin: 30px 0 auto 20px;
 }
 .btn-box {
@@ -117,8 +119,9 @@ export default {
   margin-right: 20px;
 }
 .clr-grey {
-  font-weight: normal;
-  font-size: 16px;
+  @include font;
+  /*font-weight: normal;*/
+  /*font-size: 16px;*/
   line-height: 20px;
   letter-spacing: 1px;
   color: #C7C7C7;

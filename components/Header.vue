@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   position: fixed;
   display: flex;
@@ -45,7 +45,6 @@ export default {
   border-bottom: 1px solid #3C3C3C;
 }
 .header__logo {
-  /*outline: 1px solid white;*/
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,7 +54,6 @@ export default {
 }
 
 .items {
-  /*outline: 1px solid blue;*/
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -89,9 +87,10 @@ export default {
   margin-right: 0;
 }
 .ethereum-text {
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: normal;
+  @include font;
+  /*font-family: Montserrat, sans-serif;*/
+  /*font-style: normal;*/
+  /*font-weight: normal;*/
   font-size: 18px;
   line-height: 20px;
   letter-spacing: 1px;

@@ -1,12 +1,16 @@
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"),
+  url(../../assets/font/Montserrat-Regular.ttf) format("truetype");
+}
 * {
   box-sizing: border-box;
 }
 body {
-  font-family: Montserrat, Inter, Roboto, Oxygen, Fira Sans, Helvetica Neue, sans-serif;
+  @include font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100vw;
-  font-size: 16px;
   color: #ffffff;
   background: #000000;
   padding: 0;
@@ -93,10 +97,11 @@ h3 {
   position: fixed;
   top: 30%;
   left: 50%;
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
+  //font-family: Montserrat, sans-serif;
+  //font-style: normal;
+  //font-weight: 500;
+  //font-size: 16px;
+  @include font;
   color: #FFFFFF;
   width: 522px;
   height: 162px;
@@ -194,10 +199,11 @@ h3 {
 }
 .list {
   /*outline: 1px solid red;*/
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
+  //font-family: Montserrat, sans-serif;
+  //font-style: normal;
+  //font-weight: normal;
+  //font-size: 14px;
+  @include font;
   width: 210px;
   height: 50px;
   margin: 0;
@@ -231,10 +237,11 @@ h3 {
 }
 label {
   display: block;
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
+  //font-family: Montserrat, sans-serif;
+  //font-style: normal;
+  //font-weight: normal;
+  //font-size: 18px;
+  @include font;
   line-height: 20px;
   color: #C7C7C7;
   margin-bottom: 10px;

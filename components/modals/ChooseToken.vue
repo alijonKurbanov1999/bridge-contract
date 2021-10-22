@@ -54,16 +54,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .modal__token {
   position: fixed;
   top: 25%;
   left: 50%;
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  color: #FFFFFF;
+  @include font;
+  /*font-family: Montserrat, sans-serif;*/
+  /*font-style: normal;*/
+  /*font-weight: 500;*/
+  /*font-size: 16px;*/
+  /*color: #FFFFFF;*/
   width: 546px;
   height: 448px;
   padding: 30px;

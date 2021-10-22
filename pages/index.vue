@@ -2,7 +2,7 @@
   <div>
     <Header/>
     <div class="container">
-      <Card/>
+      <Container/>
     </div>
 <!--    <Confirm/>-->
 <!--    <ChooseToken/>-->
@@ -12,20 +12,19 @@
 </template>
 
 <script>
-import Card from "../components/dashboard/Card";
+import Container from "../components/dashboard/Container";
 import Successful from "../components/modals/Successfully";
 import Error from "../components/modals/Error";
 import ChooseToken from "../components/modals/ChooseToken";
 import Confirm from "../components/modals/Confirm";
 export default {
   name: "index",
-  components: {Confirm, ChooseToken, Error, Successful, Card},
+  components: {Confirm, ChooseToken, Error, Successful, Container},
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
-  /*outline: 1px solid red;*/
   position: relative;
   display: flex;
   flex-direction: row;
