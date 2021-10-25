@@ -7,13 +7,11 @@
   box-sizing: border-box;
 }
 body {
-  font-family: Montserrat, sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  @include font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #ffffff;
-  background: #000000;
+  @include white;
+  @include background-black;
   padding: 0;
   margin: 0;
 }
@@ -38,12 +36,10 @@ li {
   text-decoration: none;
   padding: 0.5rem 1.5rem;
   white-space: nowrap;
-  font-family: Montserrat, sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  @include font;
+  @include black;
   outline: none;
   border-radius: 10px;
-  color: #000000;
   letter-spacing: 1px;
   transition: all 0.22s;
   cursor: pointer;
@@ -51,7 +47,7 @@ li {
   border: 2px solid #15DCE4;
 }
 .btn-default {
-  color: #FFFFFF;
+  @include white;
   border: 2px solid #15DCE4;
   background: #3C3C3C;
 }
@@ -64,11 +60,8 @@ li {
 .btn-danger {
   border: 2px solid #ffbfbf;
   background: #ff0000;
-  color: #FFFFFF;
+  @include white;
 }
-//.ethereum-icon {
-//  cursor: pointer;
-//}
 .copy {
   cursor: pointer;
 }
@@ -79,17 +72,14 @@ li {
   left: 0;
   bottom: 0;
   z-index: 100;
-  background: rgb(0, 0, 0);
+  @include background-black;
 }
 .modal__window {
   position: fixed;
   top: 30%;
   left: 50%;
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  color: #FFFFFF;
+  @include font;
+  @include white;
   width: 522px;
   height: 162px;
   border-radius: 14px;
@@ -104,22 +94,17 @@ li {
   background: #F55572;
 }
 .modal__window  h3 {
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: 500;
+  @include font;
+  @include white;
   font-size: 22px;
   letter-spacing: 1px;
-  color: #FFFFFF;
   margin-bottom: 15px;
 }
 .modal__window  p {
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
+  @include font;
+  @include white;
   line-height: 15px;
   letter-spacing: 2px;
-  color: #FFFFFF;
   margin: 0;
   padding: 0;
 }
@@ -162,9 +147,8 @@ li {
   cursor: pointer;
 }
 .section__inner {
-  display: flex;
-  align-items: center;
-  color: white;
+  @include flex-row;
+  @include white;
 }
 .section__inner-title{
   font-weight: 400;
@@ -177,9 +161,7 @@ li {
   margin-top: 8px;
 }
 .token__title {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  @include flex-row;
   margin-bottom: 30px;
 }
 .close {
@@ -192,27 +174,18 @@ li {
   font-size: 23px;
   line-height: 28px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.98);
+  @include white;
 }
 .list {
-  //outline: 1px solid yellow;
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
+  @include font;
+  @include flex-column;
   width: 210px;
   height: 50px;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
 }
 .list-exchange {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-row;
   width: 203px;
 }
 .exchange-icon {
@@ -232,10 +205,7 @@ li {
 
 label {
   display: block;
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
+  @include font;
   line-height: 20px;
   color: #C7C7C7;
   margin-bottom: 10px;

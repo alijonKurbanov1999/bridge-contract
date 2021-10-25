@@ -8,7 +8,7 @@
           class="ethereum-icon"
         >
       </p>
-      <span>{{ network === 'ethereum'? 'ETH': 'BscScan' }}</span>
+      <span>{{ NETWORK }}</span>
     </div>
     <div class="section__inner-title right-side">
       <span class="inner-text">
@@ -29,6 +29,9 @@ export default {
       symbol: 'wallet/symbol',
       network: 'wallet/network',
     }),
+    NETWORK() {
+      return this.network === 'ethereum'? 'ETH': 'BscScan';
+    },
   },
 };
 </script>

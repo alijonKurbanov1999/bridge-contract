@@ -21,7 +21,7 @@
       <label for="sum">Сумма перевода</label>
       <div class="row">
         <div class="row__left">
-            <button class="row-max" @click="maxNumber">MAX</button>
+            <button class="maxAmount" @click="maxNumber">MAX</button>
             <input
               id="sum" type="number" placeholder="Placeholder" class="input-inner"
               v-model="amount"
@@ -106,7 +106,6 @@ export default {
   methods: {
     chooseToken() {
       this.$store.dispatch('wallet/tokensInfo', this.userAddress);
-      // this.listTokens = true;
       // console.log('-----> ', this.listTokens);
     },
     maxNumber() {
@@ -138,25 +137,21 @@ export default {
 }
 .inner-title {
   @include font;
+  @include white;
   font-weight: 600;
   font-size: 26px;
-  line-height: 28px;
-  color: #FFFFFF;
-}
-.form__exchange {
+
+  margin-bottom: 30px;
 }
 .row {
-  //outline: 1px solid yellow;
   display: grid;
   grid-template-columns: 4fr 1fr;
   margin: 0;
 }
 .row__left{
   position: relative;
-  display: flex;
+  @include flex-row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
   padding: 10px;
   background: #585858;
   border: 1px solid #585858;
@@ -181,14 +176,12 @@ export default {
   box-sizing: border-box;
   resize: none;
 }
-.row-max {
+.maxAmount {
   width: 58px;
   height: 52px;
-  display: flex;
-  flex-direction: row;
+  @include flex-row;
   @include font;
   color: #09F2C3;
-  align-items: center;
   padding: 11px 10px;
   border: none;
   outline: none;
@@ -197,17 +190,13 @@ export default {
   cursor: pointer;
 }
 .selectOn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-row;
 }
 .select-inner {
+  @include flex-row;
   width: 165px;
   height: 52px;
   outline: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 11px 10px;
   color: rgba(255, 255, 255, 0.76);
   font-size: 18px;
@@ -220,21 +209,17 @@ export default {
   margin-top: 13px;
 }
 .row__right {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-row;
   margin-left: 25px;
 }
 .row-background {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  @include flex-row;
+  @include white;
+  @include background-black;
   padding: 20px;
   width: 119px;
   height: 72px;
-  background: #202020;
   border-radius: 16px;
-  color: #FFFFFF;
   cursor: pointer;
 }
 .equal {

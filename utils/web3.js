@@ -21,7 +21,7 @@ let contractBscInstance;
 let erc20Instance;
 let contractInstance;
 
-// eslint-disable-next-line import/prefer-default-export
+
 export const initWallet = async () => {
   try {
     await ethereum.enable();
@@ -79,12 +79,7 @@ export const createBridge = async ({ amount, recipient, symbol }) => {
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(contractAddressETH);
     const nonce = await w3.eth.getTransactionCount(userAddress);
-    // console.log('Nonce: ', nonce);
-    // console.log('AMOUNT: ', amount);
-    // console.log('RECIPIENT: ', recipient);
-    // console.log('Symbol: ', symbol);
     amount = new BigNumber(amount).shiftedBy(+18);
-    // console.log('amount with +18: ', amount);
     const sender = await contractInstance.swap(amount, nonce, recipient, '97', symbol);
     console.log('Sender: ', sender);
   } catch (err) {
@@ -96,18 +91,11 @@ export const REDEEM = async ({ amount, recipient, symbol }) => {
   try {
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(contractAddressETH);
-    const nonce = await w3.eth.getTransactionCount(userAddress);
-    // console.log('Nonce: ', nonce);
-    // console.log('AMOUNT: ', amount);
-    // console.log('RECIPIENT: ', recipient);
-    // console.log('Symbol: ', symbol);
+    // const nonce = await w3.eth.getTransactionCount(userAddress);
     // amount = new BigNumber(amount).shiftedBy(+18);
-    // // console.log('amount with +18: ', amount);
     // const redeem = await contractInstance.redeem(amount, nonce, recipient, '4', symbol, '_v', '_r', '_s');
     // console.log('Sender: ', redeem);
   } catch (err) {
     console.error('Error: ', err);
   }
 };
-
-// const sender = await contractInstance.redeem('1000000000000000000', nonce, '0x6870C9300b2166ffECce17B0598195dA629733C3', '4', 'SUBT', '_v', '_r', '_s');

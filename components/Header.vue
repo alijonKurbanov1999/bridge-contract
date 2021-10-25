@@ -20,7 +20,7 @@
               :src="require(`~/assets/icons/${network}.png`)"
               class="ethereum-icon"
             >
-            <span class="ethereum-text">{{ network === 'ethereum'? 'Ethereum': 'BscScan' }}</span>
+            <span class="ethereum-text">{{ NETWORK }}</span>
           </p>
         </li>
         <li class="item">
@@ -53,11 +53,6 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'Header',
-  // data() {
-  //   return {
-  //     copied: false,
-  //   };
-  // },
   computed: {
     ...mapGetters({
       userAddress: 'wallet/userAddress',
@@ -65,6 +60,9 @@ export default {
     }),
     address() {
       return this.userAddress.slice(0, 8).concat('...') + this.userAddress.slice(-5);
+    },
+    NETWORK() {
+      return this.network === 'ethereum'? 'Ethereum': 'BscScan';
     },
   },
   methods: {
@@ -80,35 +78,28 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  @include background-black;
   position: fixed;
   z-index: 20;
   width: 100%;
   height: 82px;
-  background-color: #000000;
   border-bottom: 1px solid #3C3C3C;
 }
 .navigation {
+  @include flex-row;
   height: 100%;
   margin: auto 15%;
   position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 .header__logo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-row;
 }
 .logo {
   margin-right: 11px;
 }
 
 .items {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-row;
   margin: 0;
   padding: 0;
 }
@@ -118,18 +109,15 @@ export default {
   margin: 0;
 }
 .item__ethereum {
+  @include flex-row;
   position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include white;
+  @include background-black;
   height: 50px;
   padding: 13px;
   margin-right: 13px;
-  background: #202020;
   border: 1px solid #3C3C3C;
   border-radius: 14px;
-  color: #FFFFFF;
 }
 .link {
   background-color: #3C3C3C;
@@ -137,17 +125,13 @@ export default {
 }
 .ethereum-text {
   @include font;
-  /*font-family: Montserrat, sans-serif;*/
-  /*font-style: normal;*/
-  /*font-weight: normal;*/
+  @include flex-row;
+  @include white;
   font-size: 18px;
   line-height: 20px;
   letter-spacing: 1px;
-  display: flex;
-  align-items: center;
   text-align: center;
   margin-left: 15px;
-  color: #FFFFFF;
 }
 .copy {
   margin-left: 15px;

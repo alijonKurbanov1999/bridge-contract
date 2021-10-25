@@ -26,12 +26,10 @@ export default {
 <style lang="scss" scoped>
 .card {
   @include font;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @include flex-column;
+  @include black;
+  @include background-black;
   padding: 112px 15%;
   align-items: start;
-  color: white;
-  background: black;
 }
 </style>

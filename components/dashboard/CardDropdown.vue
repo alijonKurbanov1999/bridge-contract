@@ -73,14 +73,13 @@ export default {
 
 <style lang="scss" scoped>
 .section__lists {
+  @include font;
+  @include white;
   width: 100%;
 }
 .lists {
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-row;
   flex-wrap: wrap;
   padding: 20px;
   margin-top: 25px;
@@ -94,7 +93,7 @@ export default {
 .list-text {
   @include font;
   line-height: 20px;
-  color: #FFFFFF;
+  @include white;
 }
 .btn-icon {
   position: absolute;
@@ -104,8 +103,8 @@ export default {
   right: 13px;
 }
 .btn-exchange {
-  background: black;
-  color: #FFFFFF;
+  @include background-black;
+  @include white;
   border: black;
 }
 .list-user,
