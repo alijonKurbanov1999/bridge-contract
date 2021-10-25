@@ -4,14 +4,30 @@
     <ul class="lists">
       <li class="list list-exchange">
         <div class="exchange-icon">
-          <p class="icon-background"><img src="~/assets/icons/Vector.png" alt=""></p>
+          <p class="icon-background">
+            <img
+              src="~/assets/icons/ethereum.png"
+              alt=""
+              class="ethereum-icon"
+            >
+          </p>
           <span>ETH</span>
         </div>
         <div>
-          <img src="~/assets/icons/coolicon.png" alt="" width="20" height="15">
+          <img
+            src="~/assets/icons/coolicon.png"
+            alt=""
+            width="20"
+            height="15"
+          >
         </div>
         <div class="exchange-icon">
-          <p class="icon-background"><img src="~/assets/icons/gold.png" alt=""></p>
+          <p class="icon-background">
+            <img
+              src="~/assets/icons/bscscan.png"
+              alt=""
+            >
+          </p>
           <span>BSC</span>
         </div>
       </li>
@@ -28,10 +44,22 @@
         <span class="list-text">100 CFi</span>
       </li>
       <li class="list">
-        <button class="btn btn-redeem btn-default"><img src="~/assets/icons/redeem.png" alt="" class="btn-icon">Выкуп</button>
+        <button class="btn btn-redeem btn-default">
+          <img
+            src="~/assets/icons/redeem.png"
+            alt=""
+            class="btn-icon"
+          >Выкуп
+        </button>
       </li>
       <li class="list">
-        <button class="btn btn-exchange"><img src="~/assets/icons/exchange.png" alt="" class="btn-icon">Обмен</button>
+        <button class="btn btn-exchange">
+          <img
+            src="~/assets/icons/exchange.png"
+            alt=""
+            class="btn-icon"
+          >Обмен
+        </button>
       </li>
     </ul>
   </div>
@@ -39,18 +67,23 @@
 
 <script>
 export default {
-  name: "CardDropdown"
-}
+  name: 'CardDropdown',
+};
 </script>
 
 <style lang="scss" scoped>
+.section__lists {
+  width: 100%;
+}
 .lists {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-items: center;
   padding: 20px;
+  margin-top: 25px;
   background: #3C3C3C;
   border-radius: 14px;
 }
@@ -60,16 +93,15 @@ export default {
 }
 .list-text {
   @include font;
-  /*font-family: Montserrat, sans-serif;*/
-  /*font-style: normal;*/
-  /*font-weight: 600;*/
-  /*font-size: 16px;*/
   line-height: 20px;
   color: #FFFFFF;
 }
 .btn-icon {
   position: absolute;
   margin-left: -30px;
+}
+.btn-redeem {
+  right: 13px;
 }
 .btn-exchange {
   background: black;
@@ -79,7 +111,10 @@ export default {
 .list-user,
 .list-transaction,
 .list-sum{
-  width: 150px;
-  margin-left: 20px;
+  width: 170px;
+  margin-left: 25px;
+}
+.list-sum {
+  width: 100px;
 }
 </style>

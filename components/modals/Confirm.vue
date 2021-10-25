@@ -1,10 +1,14 @@
 <template>
   <div>
-    <div class="modal-backdrop"></div>
+    <div class="modal-backdrop" />
     <div class="modal__confirm">
       <div class="token__title">
         <h2>Подтверждение обмена</h2>
-        <img src="~/assets/img/error/close_small.png" alt="">
+        <img
+          src="~/assets/img/error/close_small.png"
+          alt=""
+          class="close"
+        >
       </div>
       <div class="token__data">
         <span>Адрес отправителя</span>
@@ -25,14 +29,29 @@
         </div>
         <div class="exchange-items">
           <div class="exchange-icon">
-            <p class="icon-background"><img src="~/assets/icons/Vector.png" alt=""></p>
+            <p class="icon-background">
+              <img
+                src="~/assets/icons/ethereum.png"
+                alt=""
+              >
+            </p>
             <span class="clr-grey">ETH</span>
           </div>
           <div>
-            <img src="~/assets/icons/coolicon.png" alt="" width="20" height="15">
+            <img
+              src="~/assets/icons/coolicon.png"
+              alt=""
+              width="20"
+              height="15"
+            >
           </div>
           <div class="exchange-icon">
-            <p class="icon-background"><img src="~/assets/icons/gold.png" alt=""></p>
+            <p class="icon-background">
+              <img
+                src="~/assets/icons/bscscan.png"
+                alt=""
+              >
+            </p>
             <span class="clr-grey">BSC</span>
           </div>
         </div>
@@ -42,8 +61,12 @@
         <span class="clr-grey">111</span>
       </div>
       <div class="btn-box">
-        <button class="btn btn-default mr-20">Отменить</button>
-        <button class="btn btn-ocean">Подтвердить</button>
+        <button class="btn btn-default mr-20">
+          Отменить
+        </button>
+        <button class="btn btn-ocean">
+          Подтвердить
+        </button>
       </div>
     </div>
   </div>
@@ -51,29 +74,24 @@
 
 <script>
 export default {
-  name: "Confirm"
-}
+  name: 'Confirm',
+};
 </script>
 
 <style lang="scss" scoped>
 .modal__confirm {
-  @include font-default;
+  @include font;
   position: fixed;
-  top: 25%;
+  top: 15%;
   left: 50%;
-  /*font-family: Montserrat, sans-serif;*/
-  /*font-style: normal;*/
-  /*font-weight: 500;*/
-  /*font-size: 16px;*/
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
   padding: 32px;
   width: 711px;
-  height: 638px;
   background: #3C3C3C;
   border-radius: 14px;
-  z-index: 1000;
+  z-index: 100;
   transform: translateX(-50%);
 }
 .token__data {

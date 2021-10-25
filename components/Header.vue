@@ -1,48 +1,100 @@
 <template>
   <div class="header">
-    <div class="header__logo">
-      <img src="~/assets/icons/Subtract.png" alt="Crypton Academy" class="logo">
-      <img src="~/assets/icons/Academy.png" alt="Academy" class="title-logo">
-    </div>
-    <ul class="items">
-      <li class="item">
-        <p class="item__ethereum">
-          <img src="~/assets/icons/Vector.png" class="ethereum-icon">
-          <span class="ethereum-text">Ethereum</span>
-        </p>
-      </li>
-      <li class="item">
-<!--        <button class="btn">-->
-<!--          Connect wallet-->
-<!--        </button>-->
-        <p class="item__ethereum link">
-          <span class="icon icon-text">889231...87234198</span>
-          <img src="~/assets/icons/copy.png" class="copy">
-        </p>
-      </li>
-    </ul>
+    <nav class="navigation">
+      <div class="header__logo">
+        <img
+          src="~/assets/icons/Subtract.png"
+          alt="Crypton Academy"
+          class="logo"
+        >
+        <img
+          src="~/assets/icons/Academy.png"
+          alt="Academy"
+          class="title-logo"
+        >
+      </div>
+      <ul class="items">
+        <li class="item">
+          <p class="item__ethereum">
+            <img
+              :src="require(`~/assets/icons/${network}.png`)"
+              class="ethereum-icon"
+            >
+            <span class="ethereum-text">{{ network === 'ethereum'? 'Ethereum': 'BscScan' }}</span>
+          </p>
+        </li>
+        <li class="item">
+          <p
+            v-if="userAddress"
+            class="item__ethereum link"
+          >
+            <span class="icon icon-text">{{ address }}</span>
+            <img
+              src="~/assets/icons/copy.png"
+              class="copy"
+              @click="copy"
+            >
+          </p>
+          <button
+            v-else
+            class="btn"
+            @click="connect"
+          >
+            Connect wallet
+          </button>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name: "Header",
-}
+  name: 'Header',
+  // data() {
+  //   return {
+  //     copied: false,
+  //   };
+  // },
+  computed: {
+    ...mapGetters({
+      userAddress: 'wallet/userAddress',
+      network: 'wallet/network',
+    }),
+    address() {
+      return this.userAddress.slice(0, 8).concat('...') + this.userAddress.slice(-5);
+    },
+  },
+  methods: {
+    connect() {
+      this.$store.dispatch('wallet/connectWallet', this.userAddress);
+    },
+    copy() {
+      navigator.clipboard.writeText(this.userAddress);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .header {
   position: fixed;
+  z-index: 20;
+  width: 100%;
+  height: 82px;
+  background-color: #000000;
+  border-bottom: 1px solid #3C3C3C;
+}
+.navigation {
+  height: 100%;
+  margin: auto 15%;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 10%;
-  z-index: 20;
-  width: 100vw;
-  height: 82px;
-  background-color: #000000;
-  border-bottom: 1px solid #3C3C3C;
 }
 .header__logo {
   display: flex;
@@ -59,17 +111,14 @@ export default {
   align-items: center;
   margin: 0;
   padding: 0;
-
 }
 .item {
-  /*outline: 1px solid red;*/
   padding: 0;
   height: 50px;
   margin: 0;
 }
 .item__ethereum {
   position: relative;
-  top: -16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

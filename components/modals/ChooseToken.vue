@@ -1,46 +1,38 @@
 <template>
   <div>
-    <div class="modal-backdrop"></div>
+    <div
+      class="modal-backdrop"
+      @click="closeModal"
+    />
     <div class="modal__token">
       <div class="token__title">
-        <h2>Choose token</h2>
-        <img src="~/assets/img/error/close_small.png" alt="">
+        <h2 class="token__title">
+          Choose token
+        </h2>
+        <img
+          src="~/assets/img/error/close_small.png"
+          alt=""
+          class="close"
+          @click="closeModal"
+        >
       </div>
       <ul class="list__tokens">
-        <li class="section__tokens">
+        <li
+          v-for="t in tokens"
+          :key="t.symbol"
+          @click="currentToken(t)"
+          class="section__tokens"
+        >
           <div class="section__inner">
-            <p class="icon-background"><img src="~/assets/icons/Vector.png"></p>
-            <span>ETH</span>
+            <p class="icon-background">
+              <img :src="require(`~/assets/icons/${network}.png`)">
+            </p>
+            <span>{{ network === 'ethereum'? 'ETH': 'BscScan' }}</span>
           </div>
           <div class="section__inner-title">
-            <p class="inner-text right-side">0.0 USDT</p>
-          </div>
-        </li>
-        <li class="section__tokens">
-          <div class="section__inner">
-            <p class="icon-background"><img src="~/assets/icons/Vector.png"></p>
-            <span>ETH</span>
-          </div>
-          <div class="section__inner-title">
-            <p class="inner-text">0.0 USDT</p>
-          </div>
-        </li>
-        <li class="section__tokens">
-          <div class="section__inner">
-            <p class="icon-background"><img src="~/assets/icons/Vector.png"></p>
-            <span>ETH</span>
-          </div>
-          <div class="section__inner-title">
-            <p class="inner-text">0.0 USDT</p>
-          </div>
-        </li>
-        <li class="section__tokens">
-          <div class="section__inner">
-            <p class="icon-background"><img src="~/assets/icons/Vector.png"></p>
-            <span>ETH</span>
-          </div>
-          <div class="section__inner-title">
-            <p class="inner-text">0.0 USDT</p>
+            <span class="inner-text">
+              {{ t.balance }} {{ t.symbol }}
+            </span>
           </div>
         </li>
       </ul>
@@ -49,9 +41,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name: "ChooseToken"
-}
+  name: 'ChooseToken',
+  computed: {
+    ...mapGetters({
+      tokens: 'wallet/tokens',
+      network: 'wallet/network',
+      tokensShow: 'wallet/tokensShow',
+    }),
+  },
+  methods: {
+    closeModal() {
+      this.$store.dispatch('wallet/closeModal');
+    },
+    currentToken(token) {
+      this.$store.dispatch('wallet/setToken', token);
+      console.log('symbol', this.symbol);
+      this.closeModal();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -77,6 +88,7 @@ export default {
 .list__tokens{
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 0;
 }
 .section__tokens {
