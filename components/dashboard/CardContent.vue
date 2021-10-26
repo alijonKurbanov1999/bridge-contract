@@ -103,6 +103,9 @@ export default {
       return this.network === 'ethereum' ? 'BSC' : 'ETH';
     },
   },
+  mounted() {
+    this.loadingData()
+  },
   methods: {
     chooseToken() {
       this.$store.dispatch('wallet/tokensInfo', this.userAddress);
@@ -121,7 +124,36 @@ export default {
         symbol: this.symbol,
       });
     },
-  },
+    async loadingData() {
+      console.clear();
+
+      try {
+        const { result, } = await this.$axios.$post(`/api/v1/transaction/?limit=5&offset=0`, {
+          user: '0x6870c9300b2166ffecce17b0598195da629733c3',
+        });
+
+        console.log('result', result);
+      }
+      catch(e) {
+        console.error('Error in loadingData', e)
+      }
+
+      try {
+        const id = 49
+        const network = 'BSC'
+        const { result, } = await this.$axios.$post(`/api/v1/transaction/${id}/sign`, {
+          user: '0x6870c9300b2166ffecce17b0598195da629733c3',
+          network
+        });
+
+        console.log('result', result);
+      }
+      catch(e) {
+        console.error('Error in loadingData', e)
+      }
+
+    },
+   },
 };
 </script>
 

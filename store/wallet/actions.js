@@ -28,6 +28,7 @@ export default {
   async redeem({ commit }, {
     userAddress, amount, recipient, symbol,
   }) {
+    console.log('man here')
     const redeem = await REDEEM({
       userAddress, amount, recipient, symbol,
     });

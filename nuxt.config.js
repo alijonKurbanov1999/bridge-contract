@@ -38,6 +38,8 @@ export default {
     'bootstrap-vue/nuxt',
     'nuxt-i18n',
     'cookie-universal-nuxt',
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   build: {
     transpile: [
@@ -64,6 +66,14 @@ export default {
       alwaysRedirect: true,
     },
   },
+  axios: {
+    debug: true,
+    // proxy: true
+  },
+  proxy: [
+    // Proxies /result to http://176.209.225.53:3000/api
+    'http://176.209.225.53:3000/api',
+  ],
   env: {
     exampleValue: process.env.EXAMPLE_VALUE
   },

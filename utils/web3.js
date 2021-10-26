@@ -21,6 +21,10 @@ let contractBscInstance;
 let erc20Instance;
 let contractInstance;
 
+const txHash = '0x18d0d3aa87cdbeb4de8e3833dbcbb8cdd630992a99d775afcdadf4246b223bda';
+const changeUrl = `https://rinkeby.etherscan.io/tx/${txHash}`;
+const txHashExample2 = '0x67c94b9471857da4514ac49cf20bf16887f0997dba56357828d2b8b26f83655d'
+const bscUrl = `https://testnet.bscscan.com/tx/${txHashExample2}`
 
 export const initWallet = async () => {
   try {
@@ -62,7 +66,7 @@ export const tokensInfo = async () => {
       let balance = await tokenInstance.balanceOf(userAddress);
       balance = new BigNumber(balance).shiftedBy(-18).toString();
 
-      if (idx === tokenEth.length) {
+      if (idx === tokenEth.length - 1) {
         erc20Instance = tokenInstance;
       }
 
@@ -77,24 +81,37 @@ export const tokensInfo = async () => {
 export const createBridge = async ({ amount, recipient, symbol }) => {
   try {
     const contractAbstraction = await web4.getContractAbstraction(bridge);
-    contractInstance = await contractAbstraction.getInstance(contractAddressETH);
+    contractInstance = await contractAbstraction.getInstance(contractAddressBSC);
+    // contractInstance = await contractAbstraction.getInstance(contractAddressETH);
     const nonce = await w3.eth.getTransactionCount(userAddress);
     amount = new BigNumber(amount).shiftedBy(+18);
-    const sender = await contractInstance.swap(amount, nonce, recipient, '97', symbol);
+    const sender = await contractInstance.swap(amount, nonce, recipient, '4', symbol);
+    // const sender = await contractInstance.swap(amount, nonce, recipient, '97', symbol);
     console.log('Sender: ', sender);
   } catch (err) {
     console.error('Error: ', err);
   }
 };
 
-export const REDEEM = async ({ amount, recipient, symbol }) => {
+export const REDEEM = async ({ _, recipient, symbol }) => {
   try {
+    console.log('yeheheheheheheheh')
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(contractAddressETH);
-    // const nonce = await w3.eth.getTransactionCount(userAddress);
-    // amount = new BigNumber(amount).shiftedBy(+18);
+    // contractInstance = await contractAbstraction.getInstance(contractAddressBSC);
+    const nonce = await w3.eth.getTransactionCount('0x6870c9300b2166ffecce17b0598195da629733c3');
+    const amount = (new BigNumber(7).shiftedBy(+18)).toString();
+    console.log('AMOUNT: ', amount)
+    const recipient = '0x6870c9300b2166ffecce17b0598195da629733c3';
+    // const approve = await erc20Instance.approve('0x6870c9300b2166ffecce17b0598195da629733c3', amount);
+    const allowance = await erc20Instance.allowance('0x6870c9300b2166ffecce17b0598195da629733c3', '0x6870c9300b2166ffecce17b0598195da629733c3');
+    console.log('ALLPWANCE: ', allowance.toString())
+    // const setValidator = await contractInstance.setValidator(recipient);
+    // console.log('setValidator', setValidator);
+    const redeem = await contractInstance.redeem(amount, nonce, recipient, '97', 'SUBT', '0x1b', "0xda9b1cf99fb7d449d5682c260c7483004344224b16ad71584465fc0566d7b85b", '0x700e8b6dcd1542f22e33f5357250dc6e6105ef7b669c1a6772cb7604d6a8e0ac');
+    // const redeem = await contractInstance.redeem(amount, nonce, recipient, '4', 'SUBT', '0x1b', "0xda9b1cf99fb7d449d5682c260c7483004344224b16ad71584465fc0566d7b85b", '0x700e8b6dcd1542f22e33f5357250dc6e6105ef7b669c1a6772cb7604d6a8e0ac');
     // const redeem = await contractInstance.redeem(amount, nonce, recipient, '4', symbol, '_v', '_r', '_s');
-    // console.log('Sender: ', redeem);
+    console.log('Sender: ', redeem);
   } catch (err) {
     console.error('Error: ', err);
   }

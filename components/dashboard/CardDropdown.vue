@@ -44,7 +44,12 @@
         <span class="list-text">100 CFi</span>
       </li>
       <li class="list">
-        <button class="btn btn-redeem btn-default">
+        <button
+          class="btn btn-redeem btn-default"
+          @click="$store.dispatch('wallet/redeem', {
+    userAddress: 'fdsg', amount: '345', recipient: 'gs', symbol: 'SVG',
+  })"
+        >
           <img
             src="~/assets/icons/redeem.png"
             alt=""
@@ -66,6 +71,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'CardDropdown',
 };
