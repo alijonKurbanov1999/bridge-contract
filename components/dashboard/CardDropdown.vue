@@ -46,9 +46,7 @@
       <li class="list">
         <button
           class="btn btn-redeem btn-default"
-          @click="$store.dispatch('wallet/redeem', {
-    userAddress: 'fdsg', amount: '345', recipient: 'gs', symbol: 'SVG',
-  })"
+          @click.prevent="redeem(item.id, item.sender, item.amount, item.nonce, item.chainFrom, item.network, item.tokenSymbol)"
         >
           <img
             src="~/assets/icons/redeem.png"
@@ -133,23 +131,37 @@ export default {
       catch(e) {
         console.error('Error in loadingData', e)
       }
-      // console.log('yeyeyeyye: ', this.ListExchanges)
-
-      try {
-        const id = 49
-        const network = 'BSC'
-        const { result, } = await this.$axios.$post(`/api/v1/transaction/${id}/sign`, {
-          user: '0x6870c9300b2166ffecce17b0598195da629733c3',
-          network
-        });
-
-        console.log('result2', result);
-      }
-      catch(e) {
-        console.error('Error in loadingData', e)
-      }
 
     },
+    async redeem(id, sender, amount, nonce, chainFrom, network, symbol) {
+      console.log('ID: ', id)
+      console.log('AMOUNT: ', amount)
+      console.log('ANONCE: ', nonce)
+      console.log('CHAIN_FROM: ', chainFrom)
+      console.log('NETWORK: ', network)
+      console.log('SYMBOL: ', symbol)
+      let v;
+      let r;
+      let s;
+      try {
+        const { result, } = await this.$axios.$post(`/api/v1/transaction/${id}/sign`, {
+          user: sender,
+          network
+        });
+        v = result.v;
+        r = result.r;
+        s = result.s;
+        console.log('result2', result.v);
+      }
+      catch(err) {
+        console.error('Error: ', err)
+      }
+      console.log('V', v);
+      console.log('R', r);
+      console.log('S', s);
+
+      this.$store.dispatch('redeem/redeem', {sender, amount, nonce, chainFrom, symbol, v, r, s})
+    }
     // OpenSwap(network, hash) {
     //   this.$store.dispatch('', network, hash);
     //   console.log('network: ', network);

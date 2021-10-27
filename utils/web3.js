@@ -118,15 +118,19 @@ export const swap = async ({ amount, recipient, symbol }) => {
 // };
 
 
-export const REDEEM = async ({ _, recipient, symbol }) => {
+export const REDEEM = async ({ sender, amount, nonce, chainFrom, symbol, v, r, s }) => {
+  console.log('V-sign from web3: ', v);
+  console.log('R-sign from web3: ', r);
+  console.log('S-sign from web3: ', s);
+  console.log('AMOUNT from web3: ', amount);
+  console.log('ANONCE from web3: ', nonce);
+  console.log('CHAIN_FROM from web3: ', chainFrom);
+  console.log('SYMBOL from web3: ', symbol);
   try {
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
-    const nonce = await w3.eth.getTransactionCount('0x6870c9300b2166ffecce17b0598195da629733c3');
-    const amount = (new BigNumber(7).shiftedBy(+18)).toString();
-    console.log('AMOUNT: ', amount)
-    const recipient = '0x6870c9300b2166ffecce17b0598195da629733c3';
-    const redeem = await contractInstance.redeem(amount, nonce, recipient, '97', 'SUBT', '0x1b', "0xda9b1cf99fb7d449d5682c260c7483004344224b16ad71584465fc0566d7b85b", '0x700e8b6dcd1542f22e33f5357250dc6e6105ef7b669c1a6772cb7604d6a8e0ac');
+    amount = (new BigNumber(amount).shiftedBy(+18)).toString();
+    const redeem = await contractInstance.redeem(amount, nonce, sender, chainFrom, symbol, v, r, s );
     console.log('Sender: ', redeem);
   } catch (err) {
     console.error('Error: ', err);
