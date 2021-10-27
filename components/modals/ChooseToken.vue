@@ -47,18 +47,17 @@ export default {
   name: 'ChooseToken',
   computed: {
     ...mapGetters({
-      tokens: 'wallet/tokens',
+      tokens: 'swap/tokens',
       network: 'wallet/network',
-      tokensShow: 'wallet/tokensShow',
+      listTokens: 'modals/listTokens',
     }),
   },
   methods: {
     closeModal() {
-      this.$store.dispatch('wallet/closeModal');
+      this.$store.dispatch('modals/closeModal');
     },
     currentToken(token) {
-      this.$store.dispatch('wallet/setToken', token);
-      console.log('symbol', this.symbol);
+      this.$store.dispatch('modals/setToken', token);
       this.closeModal();
     },
   },

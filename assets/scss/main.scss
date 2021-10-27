@@ -91,7 +91,7 @@ li {
   background: #6f6f6f;
 }
 .error {
-  background: #F55572;
+  color: #F55572;
 }
 .modal__window  h3 {
   @include font;
@@ -209,9 +209,10 @@ label {
   line-height: 20px;
   color: #C7C7C7;
   margin-bottom: 10px;
+  margin-top: 30px;
 }
 .input {
-  margin: 0 0 30px 0;
+  margin: 0 0 0 0;
   outline: none;
   display: block;
   width: 100%;

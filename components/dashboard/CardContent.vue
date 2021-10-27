@@ -3,29 +3,46 @@
     <h2 class="inner-title">
       Кроссчейн обмен
     </h2>
-    <form
-      @submit.prevent="createBridge"
+    <validation-observer v-slot="{ handleSubmit }">
+      <form
+      @submit.prevent="handleSubmit(Swap)"
       action="#"
       class="form__exchange"
     >
-      <div>
-        <label for="name">Введите адрес получателя</label>
-        <input
-          id="name"
-          type="text"
-          placeholder="Placeholder"
-          class="input"
-          v-model="recipient"
-        >
-      </div>
+      <validation-provider
+        v-slot="{ errors }"
+        name="address"
+        :rules="'required'"
+      >
+      <label for="name">Введите адрес получателя</label>
+      <input
+        id="name"
+        type="text"
+        placeholder="Placeholder"
+        class="input" :class="{invalid: errors[0]}"
+        v-model="recipient"
+        @keydown.enter="onEnter($event, handleSubmit, Swap)"
+      >
+      <span class="error"> {{ errors[0] }} </span>
+      </validation-provider>
       <label for="sum">Сумма перевода</label>
       <div class="row">
         <div class="row__left">
             <button class="maxAmount" @click="maxNumber">MAX</button>
-            <input
-              id="sum" type="number" placeholder="Placeholder" class="input-inner"
-              v-model="amount"
+            <validation-provider
+              v-slot="{ errors }"
+              name="amount"
+              :rules="`required|max:${balance}`"
             >
+              <input
+              id="sum" type="number"
+              placeholder="Placeholder"
+              class="input-inner"
+              v-model="amount"
+              @keydown.enter="onEnter($event, handleSubmit, Swap)"
+            >
+              <span class="error"> {{ errors[0] }} </span>
+            </validation-provider>
             <div
               class="select-inner"
               @click="chooseToken"
@@ -50,7 +67,7 @@
           <div class="row-background" :class="network == 'bscscan' ? 'gold' : ''">
             <p class="icon-background">
               <img
-                :src=" require(`~/assets/icons/${network}.png`)"
+                :src=" require(`~/assets/icons/${IMG_NET_FROM}.png`)"
                 class="ethereum-icon"
               >
             </p>
@@ -63,7 +80,7 @@
           <div class="row-background" :class="network == 'bscscan' ? '' : 'gold'">
             <p class="icon-background">
               <img
-                :src=" require(`~/assets/icons/${network === 'ethereum' ? 'bscscan' : 'ethereum'}.png`)"
+                :src=" require(`~/assets/icons/${IMG_NET_TO}.png`)"
                 alt=""
               >
             </p>
@@ -75,6 +92,7 @@
         Создать обмен
       </button>
     </form>
+    </validation-observer>
   </div>
 </template>
 
@@ -95,64 +113,77 @@ export default {
       symbol: 'wallet/symbol',
       balance: 'wallet/balance',
       network: 'wallet/network',
+      listTokens: 'modals/listTokens',
     }),
     NET_FROM() {
-      return this.network === 'ethereum' ? 'BSC' : 'ETH';
+      return this.network === 'ethereum' ? 'ETH' : 'BSC';
     },
     NET_TO() {
       return this.network === 'ethereum' ? 'BSC' : 'ETH';
     },
+    IMG_NET_FROM() {
+      return this.network === 'ethereum' ? 'ethereum' : 'bscscan';
+    },
+    IMG_NET_TO() {
+      return this.network === 'ethereum' ? 'bscscan' : 'ethereum'
+    }
   },
-  mounted() {
-    this.loadingData()
-  },
+  // mounted() {
+  //   this.loadingData()
+  // },
   methods: {
     chooseToken() {
-      this.$store.dispatch('wallet/tokensInfo', this.userAddress);
-      // console.log('-----> ', this.listTokens);
+      console.log('List tokens before: ', this.listTokens)
+      this.$store.dispatch('swap/tokensInfo', this.userAddress, {root: true});
     },
     maxNumber() {
       this.amount = this.balance;
       console.log('max amount: ', this.amount);
     },
-    createBridge() {
+    Swap() {
       this.$store.dispatch({
-        type: 'wallet/create',
+        type: 'swap/Swap',
         userAddress: this.userAddress,
         amount: this.amount,
         recipient: this.recipient,
         symbol: this.symbol,
       });
     },
-    async loadingData() {
-      console.clear();
-
-      try {
-        const { result, } = await this.$axios.$post(`/api/v1/transaction/?limit=5&offset=0`, {
-          user: '0x6870c9300b2166ffecce17b0598195da629733c3',
-        });
-
-        console.log('result', result);
+    onEnter(e, handler, callback) {
+      if (!e.ctrlKey) {
+        e.preventDefault();
+        handler(callback);
       }
-      catch(e) {
-        console.error('Error in loadingData', e)
-      }
-
-      try {
-        const id = 49
-        const network = 'BSC'
-        const { result, } = await this.$axios.$post(`/api/v1/transaction/${id}/sign`, {
-          user: '0x6870c9300b2166ffecce17b0598195da629733c3',
-          network
-        });
-
-        console.log('result', result);
-      }
-      catch(e) {
-        console.error('Error in loadingData', e)
-      }
-
     },
+    // async loadingData() {
+    //   console.clear();
+    //
+    //   try {
+    //     const { result, } = await this.$axios.$post(`/api/v1/transaction/?limit=5&offset=0`, {
+    //       user: '0x6870c9300b2166ffecce17b0598195da629733c3',
+    //     });
+    //
+    //     console.log('result', result);
+    //   }
+    //   catch(e) {
+    //     console.error('Error in loadingData', e)
+    //   }
+    //
+    //   try {
+    //     const id = 49
+    //     const network = 'BSC'
+    //     const { result, } = await this.$axios.$post(`/api/v1/transaction/${id}/sign`, {
+    //       user: '0x6870c9300b2166ffecce17b0598195da629733c3',
+    //       network
+    //     });
+    //
+    //     console.log('result', result);
+    //   }
+    //   catch(e) {
+    //     console.error('Error in loadingData', e)
+    //   }
+    //
+    // },
    },
 };
 </script>
@@ -182,19 +213,19 @@ export default {
 }
 .row__left{
   position: relative;
-  @include flex-row;
+  display: flex;
+  align-items: center;
   flex-wrap: wrap;
   padding: 10px;
   background: #585858;
   border: 1px solid #585858;
   box-sizing: border-box;
   border-radius: 14px;
-  resize: none;
 }
 .input-inner {
   display: block;
   height: 52px;
-  width: 73%;
+  width: 400px;
   outline: none;
   border: none;
   padding: 5px;
@@ -208,6 +239,12 @@ export default {
   box-sizing: border-box;
   resize: none;
 }
+.error {
+  color: #e53935;;
+}
+.invalid {
+  border-color: #e53935;
+}
 .maxAmount {
   width: 58px;
   height: 52px;
@@ -220,6 +257,7 @@ export default {
   background: #747474;
   border-radius: 10px;
   cursor: pointer;
+  margin-right: 10px;
 }
 .selectOn {
   @include flex-row;
@@ -236,6 +274,8 @@ export default {
   border-radius: 10px;
   resize: none;
   cursor: pointer;
+  justify-self: end;
+  margin-left: 150px;
 }
 .defSelect {
   margin-top: 13px;

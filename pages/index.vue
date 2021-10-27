@@ -3,7 +3,7 @@
     <Header />
     <Container />
     <!-- <Confirm />-->
-    <ChooseToken v-if="tokensShow" />
+    <ChooseToken v-if="listTokens" />
     <!-- <Successful />-->
     <!-- <Error />-->
   </div>
@@ -27,7 +27,7 @@ export default {
     Container,
   },
   computed: {
-    ...mapGetters({ tokensShow: 'wallet/tokensShow' }),
+    ...mapGetters({ listTokens: 'modals/listTokens' }),
   },
 };
 </script>

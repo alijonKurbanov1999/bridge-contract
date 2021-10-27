@@ -1,4 +1,7 @@
 export default {
+  network(state) {
+    return state.network;
+  },
   userAddress(state) {
     return state.userAddress;
   },
@@ -7,17 +10,5 @@ export default {
   },
   symbol(state) {
     return state.symbol;
-  },
-  network(state) {
-    return state.network;
-  },
-  tokensShow(state) {
-    return state.tokensShow;
-  },
-  tokens(state) {
-    return state.tokens;
-  },
-  amount(state) {
-    return state.amount;
   },
 };

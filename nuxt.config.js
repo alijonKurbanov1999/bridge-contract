@@ -72,7 +72,7 @@ export default {
   },
   proxy: [
     // Proxies /result to http://176.209.225.53:3000/api
-    'http://176.209.225.53:3000/api',
+    'http://176.209.225.53:5000/api',
   ],
   env: {
     exampleValue: process.env.EXAMPLE_VALUE

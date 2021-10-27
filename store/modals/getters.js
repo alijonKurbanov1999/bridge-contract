@@ -1,3 +1,5 @@
 export default {
-  listTokens: (state) => state.listTokens,
+  listTokens(state) {
+    return state.listTokens;
+  },
 };
