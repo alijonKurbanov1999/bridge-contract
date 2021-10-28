@@ -51,6 +51,12 @@ li {
   border: 2px solid #15DCE4;
   background: #3C3C3C;
 }
+.btn:disabled{
+  cursor: not-allowed;
+  @include white;
+  border: 2px solid #000000!important;;
+  background: #3C3C3C!important;;
+}
 .btn-ocean {
   background: linear-gradient(253.94deg, #09F2C3 8.37%, #15DCE4 69.71%);
 }

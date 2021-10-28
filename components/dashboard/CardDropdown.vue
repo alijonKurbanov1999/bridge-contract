@@ -46,6 +46,7 @@
       <li class="list">
         <button
           class="btn btn-redeem btn-default"
+          :disabled="NET === item.network"
           @click.prevent="redeem(item.id, item.sender, item.amount, item.nonce, item.chainFrom, item.network, item.tokenSymbol)"
         >
           <img
@@ -111,8 +112,17 @@ export default {
   computed: {
     ...mapGetters({
       userAddress: 'wallet/userAddress',
+      network: 'wallet/network',
       // urlSwap: 'swap/urlSwap'
-    })
+    }),
+    NET() {
+      if (this.network === 'ethereum') {
+        return 'ETH'
+      } else if (this.network === 'bscscan') {
+        return 'BSC'
+      } else
+        return false
+    }
     // urlSwap(net, hash) {
     //   if(net === 'ETH') {
     //     return `https://rinkeby.etherscan.io/tx/${hash}`
