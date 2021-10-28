@@ -8,22 +8,22 @@
       @submit.prevent="handleSubmit(Swap)"
       action="#"
       class="form__exchange"
-    >
+      >
       <validation-provider
         v-slot="{ errors }"
         name="address"
         :rules="'required'"
       >
-      <label for="name">Введите адрес получателя</label>
-      <input
-        id="name"
-        type="text"
-        placeholder="Placeholder"
-        class="input" :class="{invalid: errors[0]}"
-        v-model="recipient"
-        @keydown.enter="onEnter($event, handleSubmit, Swap)"
-      >
-      <span class="error"> {{ errors[0] }} </span>
+        <label for="name">Введите адрес получателя</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Placeholder"
+          class="input" :class="{invalid: errors[0]}"
+          v-model="recipient"
+          @keydown.enter="onEnter($event, handleSubmit, Swap)"
+        >
+        <span class="error"> {{ errors[0] }} </span>
       </validation-provider>
       <label for="sum">Сумма перевода</label>
       <div class="row">
@@ -155,35 +155,6 @@ export default {
         handler(callback);
       }
     },
-    // async loadingData() {
-    //   console.clear();
-    //
-    //   try {
-    //     const { result, } = await this.$axios.$post(`/api/v1/transaction/?limit=5&offset=0`, {
-    //       user: '0x6870c9300b2166ffecce17b0598195da629733c3',
-    //     });
-    //
-    //     console.log('result', result);
-    //   }
-    //   catch(e) {
-    //     console.error('Error in loadingData', e)
-    //   }
-    //
-    //   try {
-    //     const id = 49
-    //     const network = 'BSC'
-    //     const { result, } = await this.$axios.$post(`/api/v1/transaction/${id}/sign`, {
-    //       user: '0x6870c9300b2166ffecce17b0598195da629733c3',
-    //       network
-    //     });
-    //
-    //     console.log('result', result);
-    //   }
-    //   catch(e) {
-    //     console.error('Error in loadingData', e)
-    //   }
-    //
-    // },
    },
 };
 </script>

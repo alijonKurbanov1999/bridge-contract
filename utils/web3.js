@@ -22,10 +22,6 @@ let contractInstance;
 
 let NET_CHAIN = null;
 
-// const txHash = '0x18d0d3aa87cdbeb4de8e3833dbcbb8cdd630992a99d775afcdadf4246b223bda';
-// const changeUrl = `https://rinkeby.etherscan.io/tx/${txHash}`;
-// const txHashExample2 = '0x67c94b9471857da4514ac49cf20bf16887f0997dba56357828d2b8b26f83655d'
-// const bscUrl = `https://testnet.bscscan.com/tx/${txHashExample2}`
 
 export const initWallet = async () => {
   try {
@@ -89,11 +85,9 @@ export const swap = async ({ amount, recipient, symbol }) => {
   try {
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
-    // contractInstance = await contractAbstraction.getInstance(contractAddressETH);
     const nonce = await w3.eth.getTransactionCount(userAddress);
     amount = new BigNumber(amount).shiftedBy(+18);
     const sender = await contractInstance.swap(amount, nonce, recipient, NET_CHAIN, symbol);
-    // const sender = await contractInstance.swap(amount, nonce, recipient, '97', symbol);
     console.log('Sender: ', sender);
   } catch (err) {
     console.error('Error: ', err);

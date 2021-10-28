@@ -5,7 +5,4 @@ export default {
     state.network = net;
     console.log('NETWORK: ', state.network);
   },
-  REDEEM(state) {
-    console.log(state.balance);
-  },
 };

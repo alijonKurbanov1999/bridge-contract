@@ -2,7 +2,7 @@
   <div class="main">
     <Header />
     <Container />
-    <!-- <Confirm />-->
+<!--     <Confirm />-->
     <ChooseToken v-if="listTokens" />
     <!-- <Successful />-->
     <!-- <Error />-->

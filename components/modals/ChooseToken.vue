@@ -49,7 +49,7 @@ export default {
     ...mapGetters({
       tokens: 'swap/tokens',
       network: 'wallet/network',
-      listTokens: 'modals/listTokens',
+      // listTokens: 'modals/listTokens',
     }),
   },
   methods: {
@@ -70,11 +70,6 @@ export default {
   top: 25%;
   left: 50%;
   @include font;
-  /*font-family: Montserrat, sans-serif;*/
-  /*font-style: normal;*/
-  /*font-weight: 500;*/
-  /*font-size: 16px;*/
-  /*color: #FFFFFF;*/
   width: 546px;
   height: 448px;
   padding: 30px;

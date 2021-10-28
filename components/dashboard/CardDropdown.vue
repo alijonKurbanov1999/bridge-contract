@@ -1,7 +1,7 @@
 <template>
   <div class="section__lists">
     <h2>Мои обмены</h2>
-    <ul class="lists" v-for="(item, id) in ListExchanges" :key="id">
+    <ul v-if="ListExchanges" class="lists" v-for="(item, id) in ListExchanges" :key="id">
       <li class="list list-exchange">
         <div class="exchange-icon">
           <p class="icon-background">
@@ -80,6 +80,14 @@
         </button>-->
       </li>
     </ul>
+    <h2 v-else>Список обменов пусть!</h2>
+    <div class="pagination">
+      <img src="../../assets/icons/prev-page.png" alt="prev" class="prevP" @click="previousPage">
+      <span class="numerals" @click="currentPage = startPage">{{ startPage }}</span>
+      <span>...</span>
+      <span class="numerals" @click="currentPage = endPage">{{ endPage }}</span>
+      <img src="../../assets/icons/next-page.png" alt="next" class="nextP" @click="nextPage">
+    </div>
   </div>
 </template>
 
@@ -90,6 +98,9 @@ export default {
   data() {
     return {
       ListExchanges: [],
+      currentPage: 0,
+      startPage: 1,
+      endPage: 3,
     }
   },
   mounted() {
@@ -122,7 +133,7 @@ export default {
       console.clear();
 
       try {
-        const { result, } = await this.$axios.$post(`/api/v1/transaction/?limit=5&offset=0`, {
+        const { result, } = await this.$axios.$post(`/api/v1/transaction/?limit=5&offset=${this.currentPage}`, {
           user: '0x6870c9300b2166ffecce17b0598195da629733c3',
         });
         this.ListExchanges = result.rows;
@@ -161,6 +172,26 @@ export default {
       console.log('S', s);
 
       this.$store.dispatch('redeem/redeem', {sender, amount, nonce, chainFrom, symbol, v, r, s})
+    },
+    previousPage() {
+      if (this.currentPage >= 1) {
+        console.log('Current page PREVIOUS: ', this.currentPage)
+        this.startPage--
+        this.endPage-=2
+        return this.currentPage--
+      } else {
+        return this.currentPage
+      }
+    },
+    nextPage() {
+      if (this.currentPage >= 0) {
+        console.log('Current page NEXT: ', this.currentPage)
+        this.startPage++
+        this.endPage +=2
+        return this.currentPage++
+      } else {
+        return this.currentPage
+      }
     }
     // OpenSwap(network, hash) {
     //   this.$store.dispatch('', network, hash);
@@ -175,6 +206,8 @@ export default {
 .section__lists {
   @include font;
   @include white;
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 .lists {
@@ -182,7 +215,6 @@ export default {
   @include flex-row;
   flex-wrap: wrap;
   padding: 20px;
-  margin-top: 25px;
   background: #3C3C3C;
   border-radius: 14px;
 }
@@ -215,5 +247,35 @@ export default {
 }
 .list-sum {
   width: 100px;
+}
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  justify-self: end;
+  width: 207px;
+  height: 40px;
+  padding: 5px;
+  background: #3C3C3C;
+  border-radius: 10px;
+  align-self: flex-end;
+}
+.numerals {
+  position: static;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36.33px;
+  height: 30px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.numerals:hover {
+  background: #585858;
+}
+.prevP,
+.nextP {
+  cursor: pointer;
 }
 </style>
