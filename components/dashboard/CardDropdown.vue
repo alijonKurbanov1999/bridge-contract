@@ -1,7 +1,7 @@
 <template>
   <div class="section__lists">
     <h2>Мои обмены</h2>
-    <ul class="lists" v-for="(item, id) in ListExchanges" :key="id">
+    <ul v-if="userAddress && ListExchanges.length" class="lists" v-for="(item, id) in ListExchanges" :key="id">
       <li class="list list-exchange">
         <div class="exchange-icon">
           <p class="icon-background">
@@ -105,6 +105,9 @@ export default {
   mounted() {
     this.loadingData();
   },
+  beforeUpdate() {
+    this.loadingData();
+  },
   computed: {
     ...mapGetters({
       userAddress: 'wallet/userAddress',
@@ -132,8 +135,6 @@ export default {
   },
   methods: {
     async loadingData() {
-      console.clear();
-
       try {
         const { result, } = await this.$axios.$post(`/api/v1/transaction/?limit=5&offset=${this.currentPage}`, {
           user: '0x6870c9300b2166ffecce17b0598195da629733c3',
@@ -141,10 +142,9 @@ export default {
         this.ListExchanges = result.rows;
         console.log('result1', result.rows);
       }
-      catch(e) {
-        console.error('Error in loadingData', e)
+      catch(err) {
+        console.error('Error in loadingData', err)
       }
-
     },
     async redeem(id, sender, amount, nonce, chainFrom, network, symbol) {
       console.log('ID: ', id)
