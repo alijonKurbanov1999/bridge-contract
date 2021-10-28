@@ -5,7 +5,7 @@ export default {
     console.log('begin from store')
     const tokens = await tokensInfo(userAddress);
     console.log('TOKENS: ', tokens)
-    commit('TOKENS_INFO', tokens );
+    commit('TOKENS_INFO', tokens);
   },
   async Swap({ commit }, {
     userAddress, amount, recipient, symbol,

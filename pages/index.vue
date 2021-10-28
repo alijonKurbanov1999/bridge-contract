@@ -3,7 +3,7 @@
     <Header />
     <Container />
 <!--     <Confirm />-->
-    <ChooseToken v-if="listTokens" />
+    <ChooseToken v-if="listTokens"/>
     <!-- <Successful />-->
     <!-- <Error />-->
   </div>

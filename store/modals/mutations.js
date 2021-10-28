@@ -1,6 +1,6 @@
 export default {
-  closeModal(state, payload) {
-    state.listTokens = payload;
+  closeModal(state) {
+    state.listTokens = false;
   },
   SET_TOKEN(state, t) {
     state.balance = t.balance;

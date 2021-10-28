@@ -65,14 +65,21 @@ li {
 .copy {
   cursor: pointer;
 }
-.modal-backdrop {
+
+.modal__drop {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
+}
+.back-drop {
   z-index: 1000;
-  @include background-black;
+  background-color: rgba(50, 50, 50, 0.64);
+}
+.front-drop {
+  z-index: 2;
+  background-color: rgba(50, 50, 50, 0.53);
 }
 .modal__window {
   position: fixed;

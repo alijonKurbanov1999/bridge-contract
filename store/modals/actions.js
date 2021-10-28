@@ -1,6 +1,6 @@
 export default {
   closeModal({ commit }) {
-    commit('closeModal', false);
+    commit('closeModal');
   },
   setToken({ commit }, token) {
     console.log('fourth');

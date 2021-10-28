@@ -1,5 +1,6 @@
 <template>
   <div class="section__crosschain">
+    <div v-if="!userAddress" class="modal__drop front-drop" title="Контент будет доступен после подключения кошелька!!"></div>
     <h2 class="inner-title">
       Кроссчейн обмен
     </h2>
@@ -45,7 +46,7 @@
             </validation-provider>
             <div
               class="select-inner"
-              @click="chooseToken"
+              @click.prevent="chooseToken"
             >
               <div v-if="symbol" class="selectOn">
                 <p class="icon-background">

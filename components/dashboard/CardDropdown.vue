@@ -1,7 +1,7 @@
 <template>
   <div class="section__lists">
     <h2>Мои обмены</h2>
-    <ul v-if="ListExchanges" class="lists" v-for="(item, id) in ListExchanges" :key="id">
+    <ul class="lists" v-for="(item, id) in ListExchanges" :key="id">
       <li class="list list-exchange">
         <div class="exchange-icon">
           <p class="icon-background">
@@ -80,7 +80,6 @@
         </button>-->
       </li>
     </ul>
-    <h2 v-else>Список обменов пусть!</h2>
     <div class="pagination">
       <img src="../../assets/icons/prev-page.png" alt="prev" class="prevP" @click="previousPage">
       <span class="numerals" @click="currentPage = startPage">{{ startPage }}</span>
@@ -92,7 +91,7 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'CardDropdown',
   data() {
@@ -107,7 +106,10 @@ export default {
     this.loadingData();
   },
   computed: {
-    // ...mapGetters({urlSwap: 'swap/urlSwap'})
+    ...mapGetters({
+      userAddress: 'wallet/userAddress',
+      // urlSwap: 'swap/urlSwap'
+    })
     // urlSwap(net, hash) {
     //   if(net === 'ETH') {
     //     return `https://rinkeby.etherscan.io/tx/${hash}`
@@ -256,7 +258,7 @@ export default {
   justify-self: end;
   width: 207px;
   height: 40px;
-  padding: 5px;
+  padding: 5px 10px;
   background: #3C3C3C;
   border-radius: 10px;
   align-self: flex-end;

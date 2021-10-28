@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="modal-backdrop"
+      class="modal__drop back-drop"
       @click="close"
     />
     <div class="modal__window successfully">

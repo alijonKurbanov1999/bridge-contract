@@ -14,8 +14,6 @@ let CurrentTokens = [];
 let CurrentAddress = '';
 
 let userAddress;
-let contractEthInstance;
-let contractBscInstance;
 
 let erc20Instance;
 let contractInstance;

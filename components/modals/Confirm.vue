@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal-backdrop" />
+    <div class="modal__drop back-drop" />
     <div class="modal__confirm">
       <div class="token__title">
         <h2>Подтверждение обмена</h2>
