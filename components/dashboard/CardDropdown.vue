@@ -69,16 +69,6 @@
           </a>
           Обмен
         </button>
-<!--        <button class="btn btn-exchange" @click.prevent="OpenSwap(item.network, item.transactionHash)">
-            <a :href="urlSwap">
-              <img
-                src="~/assets/icons/exchange.png"
-                alt=""
-                class="btn-icon"
-              >
-            </a>
-          Обмен
-        </button>-->
       </li>
     </ul>
     <div class="pagination">

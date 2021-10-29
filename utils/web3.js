@@ -83,6 +83,7 @@ export const SWAP = async ({ amount, recipient, symbol }) => {
     const nonce = await w3.eth.getTransactionCount(userAddress);
     amount = new BigNumber(amount).shiftedBy(+18);
     await contractInstance.swap(amount, nonce, recipient, NET_CHAIN, symbol);
+    return true
   } catch (err) {
     console.error('Error: ', err);
   }
@@ -94,6 +95,7 @@ export const REDEEM = async (dataRedeem) => {
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
     dataRedeem.amount = (new BigNumber(dataRedeem.amount).shiftedBy(+18)).toString();
     await contractInstance.redeem(dataRedeem.amount, dataRedeem.nonce, dataRedeem.sender, dataRedeem.chainFrom, dataRedeem.symbol, dataRedeem.v, dataRedeem.r, dataRedeem.s );
+    return true
   } catch (err) {
     console.error('Error: ', err);
     return false
