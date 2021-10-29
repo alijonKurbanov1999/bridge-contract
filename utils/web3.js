@@ -82,7 +82,7 @@ export const SWAP = async ({ amount, recipient, symbol }) => {
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
     const nonce = await w3.eth.getTransactionCount(userAddress);
     amount = new BigNumber(amount).shiftedBy(+18);
-    await contractInstance.Swap(amount, nonce, recipient, NET_CHAIN, symbol);
+    await contractInstance.swap(amount, nonce, recipient, NET_CHAIN, symbol);
   } catch (err) {
     console.error('Error: ', err);
   }

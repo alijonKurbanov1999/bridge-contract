@@ -59,7 +59,7 @@
       </div>
       <div class="token__data">
         <span>Комиссия</span>
-        <span class="clr-grey">111</span>
+        <span class="clr-grey">0</span>
       </div>
       <div class="btn-box">
         <button class="btn btn-default mr-20" @click="cancel">

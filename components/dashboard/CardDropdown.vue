@@ -33,11 +33,11 @@
       </li>
       <li class="list list-user">
         <span class="list-title">Получатель</span>
-        <span class="list-text">{{ item.recepient }}</span>
+        <span class="list-text">{{ item.recepient.slice(0, 8) }}</span>
       </li>
       <li class="list list-transaction">
         <span class="list-title">Транзакция</span>
-        <span class="list-text">{{ item.transactionHash }}</span>
+        <span class="list-text">{{ item.transactionHash.slice(0, 8) }}</span>
       </li>
       <li class="list list-sum">
         <span class="list-title">Сумма</span>
@@ -106,18 +106,18 @@ export default {
   mounted() {
     this.loadingData();
   },
-  // updated() {
-  //   this.loadingData();
-  // },
+  updated() {
+    this.loadingData();
+  },
   computed: {
     ...mapGetters({
       userAddress: 'wallet/userAddress',
       network: 'wallet/network',
       confirm: 'modals/confirm',
     }),
-    // itemRecipient(recepient) {
-    //   return (recepient).split(" ").splice(8, 20, '...').join()
-    // },
+    itemRecipient(recepient) {
+      return (recepient).split(" ").splice(8, 20, '...').join()
+    },
     NET() {
       if (this.network === 'ethereum') {
         return 'ETH'
