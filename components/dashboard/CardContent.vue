@@ -1,99 +1,78 @@
 <template>
   <div class="section__crosschain">
-    <div v-if="!userAddress" class="modal__drop front-drop" title="Контент будет доступен после подключения кошелька!!"></div>
+<!--    <div v-if="!userAddress" class="modal__drop front-drop" title="Контент будет доступен после подключения кошелька!!"></div>-->
     <h2 class="inner-title">
       Кроссчейн обмен
     </h2>
-    <validation-observer v-slot="{ handleSubmit }">
-      <form
-      @submit.prevent="handleSubmit(Swap)"
-      action="#"
-      class="form__exchange"
+    <div class="form__exchange"
+    >
+      <label for="name">Введите адрес получателя</label>
+      <input
+        id="name"
+        type="text"
+        placeholder="Placeholder"
+        class="input"
+        v-model="recipient"
       >
-      <validation-provider
-        v-slot="{ errors }"
-        name="address"
-        :rules="'required'"
-      >
-        <label for="name">Введите адрес получателя</label>
-        <input
-          id="name"
-          type="text"
-          placeholder="Placeholder"
-          class="input" :class="{invalid: errors[0]}"
-          v-model="recipient"
-          @keydown.enter="onEnter($event, handleSubmit, Swap)"
-        >
-        <span class="error"> {{ errors[0] }} </span>
-      </validation-provider>
-      <label for="sum">Сумма перевода</label>
-      <div class="row">
-        <div class="row__left">
-            <button class="maxAmount" @click="maxNumber">MAX</button>
-            <validation-provider
-              v-slot="{ errors }"
-              name="amount"
-              :rules="`required|max:${balance}`"
-            >
-              <input
-              id="sum" type="number"
-              placeholder="Placeholder"
-              class="input-inner"
-              v-model="amount"
-              @keydown.enter="onEnter($event, handleSubmit, Swap)"
-            >
-              <span class="error"> {{ errors[0] }} </span>
-            </validation-provider>
-            <div
-              class="select-inner"
-              @click.prevent="chooseToken"
-            >
-              <div v-if="symbol" class="selectOn">
-                <p class="icon-background">
-                  <img
-                    :src=" require(`~/assets/icons/${network}.png`)"
-                    class="ethereum-icon"
-                  >
-                </p>
-                {{ symbol }}
-              </div>
-              <p v-else class="defSelect">Choose token</p>
-              <img
-                src="~/assets/icons/down.png"
-                alt=""
-              >
-          </div>
-        </div>
-        <div class="row__right">
-          <div class="row-background" :class="network == 'bscscan' ? 'gold' : ''">
-            <p class="icon-background">
-              <img
-                :src=" require(`~/assets/icons/${IMG_NET_FROM}.png`)"
-                class="ethereum-icon"
-              >
-            </p>
-            <span>от {{ NET_FROM }}</span>
-          </div>
-          <img
-            src="../../assets/icons/equal.png"
-            class="equal"
+    <label for="sum">Сумма перевода</label>
+    <div class="row">
+      <div class="row__left">
+          <button class="maxAmount" @click="maxNumber">MAX</button>
+            <input
+            id="sum" type="number"
+            placeholder="Placeholder"
+            class="input-inner"
+            v-model="amount"
           >
-          <div class="row-background" :class="network == 'bscscan' ? '' : 'gold'">
-            <p class="icon-background">
-              <img
-                :src=" require(`~/assets/icons/${IMG_NET_TO}.png`)"
-                alt=""
-              >
-            </p>
-            <span>Куда {{ NET_TO }}</span>
-          </div>
+          <div
+            class="select-inner"
+            @click="chooseToken"
+          >
+            <div v-if="symbol" class="selectOn">
+              <p class="icon-background">
+                <img
+                  :src=" require(`~/assets/icons/${network}.png`)"
+                  class="ethereum-icon"
+                >
+              </p>
+              {{ symbol }}
+            </div>
+            <p v-else class="defSelect">Choose token</p>
+            <img
+              src="~/assets/icons/down.png"
+              alt=""
+            >
         </div>
       </div>
-      <button class="btn btn-create">
-        Создать обмен
-      </button>
-    </form>
-    </validation-observer>
+      <div class="row__right">
+        <div class="row-background" :class="network == 'bscscan' ? 'gold' : ''">
+          <p class="icon-background">
+            <img
+              :src=" require(`~/assets/icons/${IMG_NET_FROM}.png`)"
+              class="ethereum-icon"
+            >
+          </p>
+          <span>от {{ NET_FROM }}</span>
+        </div>
+        <img
+          src="../../assets/icons/equal.png"
+          class="equal"
+        >
+        <div class="row-background" :class="network == 'bscscan' ? '' : 'gold'">
+          <p class="icon-background">
+            <img
+              :src=" require(`~/assets/icons/${IMG_NET_TO}.png`)"
+              alt=""
+            >
+          </p>
+          <span>Куда {{ NET_TO }}</span>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-create" @click="Swap">
+      Создать обмен
+    </button>
+  </div>
   </div>
 </template>
 
@@ -114,7 +93,6 @@ export default {
       symbol: 'wallet/symbol',
       balance: 'wallet/balance',
       network: 'wallet/network',
-      listTokens: 'modals/listTokens',
     }),
     NET_FROM() {
       return this.network === 'ethereum' ? 'ETH' : 'BSC';
@@ -129,32 +107,21 @@ export default {
       return this.network === 'ethereum' ? 'bscscan' : 'ethereum'
     }
   },
-  // mounted() {
-  //   this.loadingData()
-  // },
   methods: {
     chooseToken() {
-      console.log('List tokens before: ', this.listTokens)
-      this.$store.dispatch('swap/tokensInfo', this.userAddress, {root: true});
+      this.$store.dispatch('swap/tokensInfo',  this.userAddress);
     },
     maxNumber() {
       this.amount = this.balance;
       console.log('max amount: ', this.amount);
     },
     Swap() {
-      this.$store.dispatch({
-        type: 'swap/Swap',
+      this.$store.dispatch('swap/Swap',{
         userAddress: this.userAddress,
         amount: this.amount,
         recipient: this.recipient,
         symbol: this.symbol,
       });
-    },
-    onEnter(e, handler, callback) {
-      if (!e.ctrlKey) {
-        e.preventDefault();
-        handler(callback);
-      }
     },
    },
 };

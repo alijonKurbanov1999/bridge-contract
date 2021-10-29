@@ -1,10 +1,17 @@
+import {REDEEM} from "~/utils/web3";
+
 export default {
-  closeModal({ commit }) {
-    commit('closeModal');
+  cancel({ commit } ) {
+    commit('CANCEL', false)
   },
-  setToken({ commit }, token) {
-    console.log('fourth');
-    commit('SET_TOKEN', token);
-    console.log('fifth');
+  confirmRedeem({ commit }, { sender, recepient, amount, nonce, chainFrom, symbol, v, r, s }) {
+    console.log('success from store actions: ', nonce, amount, symbol)
+    commit('CONFIRMATION', {sender, recepient, amount, nonce, chainFrom, symbol, v, r, s})
   },
+  async redeem({ commit }, dataRedeem) {
+    console.log('test from store action before', dataRedeem)
+    const result = await REDEEM(dataRedeem)
+    console.log('test from store action after', dataRedeem)
+    commit('REDEEM', result)
+  }
 };

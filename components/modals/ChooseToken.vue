@@ -54,10 +54,10 @@ export default {
   },
   methods: {
     closeModal() {
-      this.$store.dispatch('modals/closeModal');
+      this.$store.dispatch('swap/closeModal', false);
     },
-    currentToken(token) {
-      this.$store.dispatch('modals/setToken', token);
+    currentToken(t) {
+      this.$store.dispatch('swap/setToken', t);
       this.closeModal();
     },
   },

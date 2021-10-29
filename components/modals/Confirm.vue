@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal__drop back-drop" />
+    <div class="modal__drop back-drop"/>
     <div class="modal__confirm">
       <div class="token__title">
         <h2>Подтверждение обмена</h2>
@@ -8,34 +8,35 @@
           src="~/assets/img/error/close_small.png"
           alt=""
           class="close"
+          @click="cancel"
         >
       </div>
       <div class="token__data">
         <span>Адрес отправителя</span>
-        <span class="clr-grey">0x2bx1eat5jckfv9640lqejqcek4xtcq4xtcq92</span>
+        <span class="clr-grey">{{ dataRedeem.sender }}</span>
       </div>
       <div class="token__data">
         <span>Адрес получателя</span>
-        <span class="clr-grey">0x2bx1eat5jckfv9640lqejqcek4xtcq4xtcq92</span>
+        <span class="clr-grey">{{ dataRedeem.recipient }}</span>
       </div>
       <div class="token__data">
         <span>Токен</span>
-        <span class="clr-grey">0.0 USDT</span>
+        <span class="clr-grey">{{ dataRedeem.symbol }}</span>
       </div>
       <div class="token__exchange">
         <div class="token__data">
           <span>Сумма переводов</span>
-          <span class="clr-grey">USDT</span>
+          <span class="clr-grey">{{ dataRedeem.amount }} {{ dataRedeem.symbol }}</span>
         </div>
         <div class="exchange-items">
           <div class="exchange-icon">
             <p class="icon-background">
               <img
-                src="~/assets/icons/ethereum.png"
+                :src="require(`~/assets/icons/${IMG_NET_FROM}.png`)"
                 alt=""
               >
             </p>
-            <span class="clr-grey">ETH</span>
+            <span class="clr-grey">{{ NET_FROM }}</span>
           </div>
           <div>
             <img
@@ -48,11 +49,11 @@
           <div class="exchange-icon">
             <p class="icon-background">
               <img
-                src="~/assets/icons/bscscan.png"
+                :src="require(`~/assets/icons/${IMG_NET_TO}.png`)"
                 alt=""
               >
             </p>
-            <span class="clr-grey">BSC</span>
+            <span class="clr-grey">{{ NET_TO }}</span>
           </div>
         </div>
       </div>
@@ -61,10 +62,10 @@
         <span class="clr-grey">111</span>
       </div>
       <div class="btn-box">
-        <button class="btn btn-default mr-20">
+        <button class="btn btn-default mr-20" @click="cancel">
           Отменить
         </button>
-        <button class="btn btn-ocean">
+        <button class="btn btn-ocean" @click.prevent="confirmREDEEM">
           Подтвердить
         </button>
       </div>
@@ -73,8 +74,38 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Confirm',
+  computed: {
+    ...mapGetters({
+      confirm: 'modals/confirm',
+      network: 'wallet/network',
+      dataRedeem: 'modals/dataRedeem',
+    }),
+    NET_FROM() {
+      return this.network === 'ethereum' ? 'BSC' : 'ETH';
+    },
+    NET_TO() {
+      return this.network === 'ethereum' ? 'ETH' : 'BSC';
+    },
+    IMG_NET_FROM() {
+      return this.network === 'ethereum' ? 'bscscan' : 'ethereum'
+    },
+    IMG_NET_TO() {
+      return this.network === 'ethereum' ? 'ethereum' : 'bscscan';
+    },
+
+  },
+  methods: {
+    cancel() {
+      this.$store.dispatch('modals/cancel')
+    },
+    confirmREDEEM() {
+      console.log('DATA OF REDEEM IS: ', this.dataRedeem)
+      this.$store.dispatch('modals/redeem', this.dataRedeem)
+    }
+  }
 };
 </script>
 
@@ -138,8 +169,6 @@ export default {
 }
 .clr-grey {
   @include font;
-  /*font-weight: normal;*/
-  /*font-size: 16px;*/
   line-height: 20px;
   letter-spacing: 1px;
   color: #C7C7C7;

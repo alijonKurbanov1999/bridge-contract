@@ -2,8 +2,8 @@
   <div class="main">
     <Header />
     <Container />
-<!--     <Confirm />-->
-    <ChooseToken v-if="listTokens"/>
+    <Confirm v-if="confirm"/>
+    <ChooseToken v-if="modalTokens"/>
     <!-- <Successful />-->
     <!-- <Error />-->
   </div>
@@ -20,14 +20,17 @@ import Confirm from '../components/modals/Confirm';
 export default {
   name: 'Index',
   components: {
-    // Confirm,
+    Confirm,
     ChooseToken,
     // Error,
     // Successful,
     Container,
   },
   computed: {
-    ...mapGetters({ listTokens: 'modals/listTokens' }),
+    ...mapGetters({
+      modalTokens: 'swap/modalTokens',
+      confirm: 'modals/confirm',
+    }),
   },
 };
 </script>

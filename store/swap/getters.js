@@ -1,7 +1,7 @@
 export default {
-  // tokensShow(state) {
-  //   return state.tokensShow;
-  // },
+  modalTokens(state) {
+    return state.modalTokens;
+  },
   tokens(state) {
     return state.tokens;
   },

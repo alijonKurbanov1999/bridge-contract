@@ -33,7 +33,7 @@
       </li>
       <li class="list list-user">
         <span class="list-title">Получатель</span>
-        <span class="list-text" v-if="item.recipient">{{ item.slice(0, 8).concat('...') + item.slice(-5) }}</span>
+        <span class="list-text">{{ item.recepient }}</span>
       </li>
       <li class="list list-transaction">
         <span class="list-title">Транзакция</span>
@@ -47,7 +47,7 @@
         <button
           class="btn btn-redeem btn-default"
           :disabled="NET === item.network"
-          @click.prevent="redeem(item.id, item.sender, item.amount, item.nonce, item.chainFrom, item.network, item.tokenSymbol)"
+          @click.prevent="redeem(item.id, item.sender, item.recepient, item.amount, item.nonce, item.chainFrom, item.network, item.tokenSymbol)"
         >
           <img
             src="~/assets/icons/redeem.png"
@@ -106,15 +106,19 @@ export default {
   mounted() {
     this.loadingData();
   },
-  beforeUpdate() {
-    this.loadingData();
-  },
+  // updated() {
+  //   this.loadingData();
+  // },
   computed: {
     ...mapGetters({
       userAddress: 'wallet/userAddress',
       network: 'wallet/network',
+      confirm: 'modals/confirm',
       // urlSwap: 'swap/urlSwap'
     }),
+    // itemRecipient(recepient) {
+    //   return (recepient).split(",").splice(8, 20, '...').join()
+    // },
     NET() {
       if (this.network === 'ethereum') {
         return 'ETH'
@@ -150,19 +154,14 @@ export default {
           user: '0x6870c9300b2166ffecce17b0598195da629733c3',
         });
         this.ListExchanges = result.rows;
-        console.log('result1', result.rows);
+        console.log('LIST: ', this.ListExchanges)
       }
       catch(err) {
         console.error('Error in loadingData', err)
       }
     },
-    async redeem(id, sender, amount, nonce, chainFrom, network, symbol) {
-      console.log('ID: ', id)
-      console.log('AMOUNT: ', amount)
-      console.log('ANONCE: ', nonce)
-      console.log('CHAIN_FROM: ', chainFrom)
-      console.log('NETWORK: ', network)
-      console.log('SYMBOL: ', symbol)
+    async redeem(id, sender, recepient, amount, nonce, chainFrom, network, symbol) {
+      console.log('USER address: ', this.userAddress)
       let v;
       let r;
       let s;
@@ -174,20 +173,16 @@ export default {
         v = result.v;
         r = result.r;
         s = result.s;
-        console.log('result2', result.v);
       }
       catch(err) {
         console.error('Error: ', err)
       }
-      console.log('V', v);
-      console.log('R', r);
-      console.log('S', s);
-
-      this.$store.dispatch('redeem/redeem', {sender, amount, nonce, chainFrom, symbol, v, r, s})
+      await this.$store.dispatch('modals/confirmRedeem', {
+        sender, recepient, amount, nonce, chainFrom, symbol, v, r, s,
+      })
     },
     previousPage() {
       if (this.currentPage >= 1) {
-        console.log('Current page PREVIOUS: ', this.currentPage)
         this.startPage--
         this.endPage-=2
         return this.currentPage--
@@ -197,7 +192,6 @@ export default {
     },
     nextPage() {
       if (this.currentPage >= 0) {
-        console.log('Current page NEXT: ', this.currentPage)
         this.startPage++
         this.endPage +=2
         return this.currentPage++
@@ -205,11 +199,6 @@ export default {
         return this.currentPage
       }
     }
-    // OpenSwap(network, hash) {
-    //   this.$store.dispatch('', network, hash);
-    //   console.log('network: ', network);
-    //   console.log('HASH: ', hash);
-    // }
   }
 };
 </script>

@@ -1,5 +1,8 @@
 export default {
-  listTokens(state) {
-    return state.listTokens;
+  confirm(state) {
+    return state.confirm;
+  },
+  dataRedeem(state) {
+    return state.dataRedeem
   },
 };
