@@ -57,7 +57,7 @@ export default {
       this.$store.dispatch('swap/closeModal', false);
     },
     currentToken(t) {
-      this.$store.dispatch('swap/setToken', t);
+      this.$store.dispatch('wallet/setToken', t);
       this.closeModal();
     },
   },

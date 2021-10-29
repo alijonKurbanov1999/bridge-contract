@@ -1,4 +1,4 @@
-import {REDEEM} from "~/utils/web3";
+import { REDEEM } from "~/utils/web3";
 
 export default {
   cancel({ commit } ) {
@@ -9,9 +9,7 @@ export default {
     commit('CONFIRMATION', {sender, recepient, amount, nonce, chainFrom, symbol, v, r, s})
   },
   async redeem({ commit }, dataRedeem) {
-    console.log('test from store action before', dataRedeem)
     const result = await REDEEM(dataRedeem)
-    console.log('test from store action after', dataRedeem)
-    commit('REDEEM', result)
+    commit(result)
   }
 };

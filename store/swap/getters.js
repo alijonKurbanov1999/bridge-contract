@@ -8,7 +8,4 @@ export default {
   amount(state) {
     return state.amount;
   },
-  // urlSwap(state) {
-  //   return state.urlSwap;
-  // },
 }

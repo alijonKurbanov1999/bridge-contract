@@ -1,6 +1,6 @@
 <template>
   <div class="section__crosschain">
-<!--    <div v-if="!userAddress" class="modal__drop front-drop" title="Контент будет доступен после подключения кошелька!!"></div>-->
+    <div v-if="!userAddress" class="modal__drop front-drop" title="Контент будет доступен после подключения кошелька!!"></div>
     <h2 class="inner-title">
       Кроссчейн обмен
     </h2>
@@ -69,7 +69,7 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-create" @click="Swap">
+    <button class="btn btn-create" @click.prevent="Swap">
       Создать обмен
     </button>
   </div>
@@ -109,13 +109,15 @@ export default {
   },
   methods: {
     chooseToken() {
-      this.$store.dispatch('swap/tokensInfo',  this.userAddress);
+      this.$store.dispatch('swap/tokensInfo',  this.userAddress, {root: true});
     },
     maxNumber() {
       this.amount = this.balance;
       console.log('max amount: ', this.amount);
     },
     Swap() {
+      console.log('start!')
+      console.log('UserAddress: ', this.userAddress);
       this.$store.dispatch('swap/Swap',{
         userAddress: this.userAddress,
         amount: this.amount,

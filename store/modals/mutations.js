@@ -14,7 +14,4 @@ export default {
     state.dataRedeem.s = s;
     state.confirm = true;
   },
-  REDEEM(state) {
-    state.confirm = false;
-  },
 };

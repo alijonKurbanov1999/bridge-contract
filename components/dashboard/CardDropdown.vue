@@ -114,10 +114,9 @@ export default {
       userAddress: 'wallet/userAddress',
       network: 'wallet/network',
       confirm: 'modals/confirm',
-      // urlSwap: 'swap/urlSwap'
     }),
     // itemRecipient(recepient) {
-    //   return (recepient).split(",").splice(8, 20, '...').join()
+    //   return (recepient).split(" ").splice(8, 20, '...').join()
     // },
     NET() {
       if (this.network === 'ethereum') {
@@ -154,7 +153,6 @@ export default {
           user: '0x6870c9300b2166ffecce17b0598195da629733c3',
         });
         this.ListExchanges = result.rows;
-        console.log('LIST: ', this.ListExchanges)
       }
       catch(err) {
         console.error('Error in loadingData', err)

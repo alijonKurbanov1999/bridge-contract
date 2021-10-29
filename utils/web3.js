@@ -36,15 +36,11 @@ export const initWallet = async () => {
       CurrentTokens = tokenEth;
       NET_CHAIN = 97;
       CurrentAddress = '0xAB1D0619d1675D43CcAd6d0B412F05859F41c392';
-      console.log('Current address is: ', CurrentAddress)
-      console.log('Alltokens of ETH: ', CurrentTokens);
     } else if (chainId === 97) {
       net = 'bscscan';
       CurrentTokens = tokenBsc;
       NET_CHAIN = 4;
       CurrentAddress = '0xFff3D0609282De25B7D987A43c15C8794dA3756e';
-      console.log('Current address is: ', CurrentAddress)
-      console.log('Alltokens of BSC: ', CurrentTokens);
     } else {
       console.error("Please connect only on two nets: 'Ethereum' or 'BscScan'");
     }
@@ -79,48 +75,27 @@ export const tokensInfo = async () => {
   }
 };
 
-export const swap = async ({ amount, recipient, symbol }) => {
+export const SWAP = async ({ amount, recipient, symbol }) => {
   try {
+    console.log('test from w3')
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
     const nonce = await w3.eth.getTransactionCount(userAddress);
     amount = new BigNumber(amount).shiftedBy(+18);
-    console.log('test 3 amount: ', amount)
-    const sender = await contractInstance.swap(amount, nonce, recipient, NET_CHAIN, symbol);
-    console.log('Sender: ', sender);
+    await contractInstance.Swap(amount, nonce, recipient, NET_CHAIN, symbol);
   } catch (err) {
     console.error('Error: ', err);
   }
 };
 
-// export const swapIn = async ({ network, hash }) => {
-//   try {
-//     let url;
-//     if(network === 'ETH') {
-//       url = `https://rinkeby.etherscan.io/tx/${hash}`
-//     } else if (network === 'BSC') {
-//       url = `https://testnet.bscscan.com/tx/${hash}`
-//     } else {
-//       console.error(`Your hash transaction ${hash} is wrong!`)
-//     }
-//     return {url}
-//   } catch (err) {
-//     console.error('Error: ', err)
-//     return false
-//   }
-// };
-
-
 export const REDEEM = async (dataRedeem) => {
-  console.log('test from web3 redeem: ', dataRedeem)
   try {
-    console.log('test from inner web3 redeem')
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
     dataRedeem.amount = (new BigNumber(dataRedeem.amount).shiftedBy(+18)).toString();
-    const redeem = await contractInstance.redeem(dataRedeem.amount, dataRedeem.nonce, dataRedeem.sender, dataRedeem.chainFrom, dataRedeem.symbol, dataRedeem.v, dataRedeem.r, dataRedeem.s );
-    console.log('Successfully: ', redeem);
+    await contractInstance.redeem(dataRedeem.amount, dataRedeem.nonce, dataRedeem.sender, dataRedeem.chainFrom, dataRedeem.symbol, dataRedeem.v, dataRedeem.r, dataRedeem.s );
   } catch (err) {
     console.error('Error: ', err);
+    return false
   }
 };
