@@ -1,15 +1,21 @@
-import { REDEEM } from "~/utils/web3";
+import {REDEEM, SWAP} from "~/utils/web3";
 
 export default {
   cancel({ commit } ) {
     commit('CANCEL', false)
   },
-  confirmRedeem({ commit }, { sender, recepient, amount, nonce, chainFrom, symbol, v, r, s }) {
-    console.log('success from store actions: ', nonce, amount, symbol)
-    commit('CONFIRMATION', {sender, recepient, amount, nonce, chainFrom, symbol, v, r, s})
+  confirmRedeem({ commit }, payload) {
+    console.log('success from store actions: ', payload)
+    commit('CONFIRMATION', payload)
   },
-  async redeem({ commit }, dataRedeem) {
-    const result = await REDEEM(dataRedeem)
+  async redeem({ commit }, data) {
+    const result = await REDEEM(data)
+    console.log('Success!!!!');
     commit(result)
-  }
+  },
+  async Swap({ commit }, payload) {
+    console.log('test swap 2')
+    const swap = await SWAP(payload);
+    commit(swap)
+  },
 };

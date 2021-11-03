@@ -1,37 +1,36 @@
 <template>
-  <div class="header">
-    <nav class="navigation">
+  <header class="header">
+    <nav class="header__navigation">
       <div class="header__logo">
         <img
           src="~/assets/icons/Subtract.png"
           alt="Crypton Academy"
-          class="logo"
+          class="header__logo-image"
         >
         <img
           src="~/assets/icons/Academy.png"
           alt="Academy"
-          class="title-logo"
         >
       </div>
-      <ul class="items">
-        <li class="item">
-          <p class="item__ethereum">
+      <ul class="header__menu">
+        <li class="header__item">
+          <p class="header__item-address">
             <img
               :src="require(`~/assets/icons/${network}.png`)"
-              class="ethereum-icon"
+              class="header__item-icon"
             >
-            <span class="ethereum-text">{{ NETWORK }}</span>
+            <span class="header__item-title">{{ NETWORK }}</span>
           </p>
         </li>
-        <li class="item">
+        <li class="header__item">
           <p
             v-if="userAddress"
-            class="item__ethereum link"
+            class="header__item-address header__item_background"
           >
-            <span class="icon icon-text">{{ address }}</span>
+            {{ address }}
             <img
               src="~/assets/icons/copy.png"
-              class="copy"
+              class="header_copyright"
               @click="copy"
             >
           </p>
@@ -45,7 +44,7 @@
         </li>
       </ul>
     </nav>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -78,62 +77,55 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  &__navigation {
+    @include flex-row;
+    height: 100%;
+    margin: auto 15%;
+    position: relative;
+  }
   @include background-black;
   position: fixed;
   z-index: 20;
   width: 100%;
   height: 82px;
   border-bottom: 1px solid #3C3C3C;
-}
-.navigation {
-  @include flex-row;
-  height: 100%;
-  margin: auto 15%;
-  position: relative;
-}
-.header__logo {
-  @include flex-row;
-}
-.logo {
-  margin-right: 11px;
-}
-
-.items {
-  @include flex-row;
-  margin: 0;
-  padding: 0;
-}
-.item {
-  padding: 0;
-  height: 50px;
-  margin: 0;
-}
-.item__ethereum {
-  @include flex-row;
-  position: relative;
-  @include white;
-  @include background-black;
-  height: 50px;
-  padding: 13px;
-  margin-right: 13px;
-  border: 1px solid #3C3C3C;
-  border-radius: 14px;
-}
-.link {
-  background-color: #3C3C3C;
-  margin-right: 0;
-}
-.ethereum-text {
-  @include font;
-  @include flex-row;
-  @include white;
-  font-size: 18px;
-  line-height: 20px;
-  letter-spacing: 1px;
-  text-align: center;
-  margin-left: 15px;
-}
-.copy {
-  margin-left: 15px;
+  &__logo {
+    @include flex-row;
+    &-image {
+      margin-right: 11px;
+    }
+  }
+  &__menu {
+    @include flex-row;
+    margin: 0;
+    padding: 0;
+  }
+  &__item {
+    padding: 0;
+    height: 50px;
+    margin: 0;
+    &_background {
+      background-color: #3C3C3C;
+    }
+    &-title {
+      letter-spacing: 1px;
+      margin-left: 15px;
+    }
+    &-address {
+      @include flex-row;
+      position: relative;
+      @include white;
+      @include background-black;
+      height: 50px;
+      padding: 13px;
+      margin-right: 13px;
+      border: 1px solid #3C3C3C;
+      border-radius: 14px;
+    }
+  }
+  &_copyright {
+    margin-left: 15px;
+    cursor: pointer;
+  }
 }
 </style>

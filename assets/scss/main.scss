@@ -46,7 +46,7 @@ li {
   background: linear-gradient(253.94deg, #09F2C3 8.37%, #15DCE4 69.71%);
   border: 2px solid #15DCE4;
 }
-.btn-default {
+.btn_default {
   @include white;
   border: 2px solid #15DCE4;
   background: #3C3C3C;
@@ -67,9 +67,6 @@ li {
   border: 2px solid #ffbfbf;
   background: #ff0000;
   @include white;
-}
-.copy {
-  cursor: pointer;
 }
 
 .modal__drop {
@@ -148,7 +145,7 @@ li {
   top: 44px;
   border-bottom-left-radius: 14px;
 }
-.section__tokens {
+.box-token {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -158,21 +155,22 @@ li {
   border-radius: 14px;
   width: 186px;
   cursor: pointer;
+  &__inner-top {
+    @include flex-row;
+    @include white;
+  }
+  &__inner-bottom{
+    font-weight: 400;
+    font-size: 16px;
+    text-align: right;
+    color: #8F8F8F;
+    &_right-side{
+      align-self: end;
+      margin-top: 8px;
+    }
+  }
 }
-.section__inner {
-  @include flex-row;
-  @include white;
-}
-.section__inner-title{
-  font-weight: 400;
-  font-size: 16px;
-  text-align: right;
-  color: #8F8F8F;
-}
-.right-side{
-  align-self: end;
-  margin-top: 8px;
-}
+
 .token__title {
   @include flex-row;
   margin-bottom: 30px;
@@ -189,7 +187,7 @@ li {
   margin: 0;
   @include white;
 }
-.list {
+.item  {
   @include font;
   @include flex-column;
   width: 210px;
@@ -197,7 +195,7 @@ li {
   margin: 0;
   padding: 0;
 }
-.list-exchange {
+.item-exchange {
   @include flex-row;
   width: 203px;
 }
@@ -206,7 +204,7 @@ li {
   justify-content: start;
   align-items: center;
 }
-.icon-background {
+.icon_background {
   width: 35px;
   height: 30px;
   background: #000000;
@@ -224,25 +222,7 @@ label {
   margin-bottom: 10px;
   margin-top: 30px;
 }
-.input {
-  margin: 0 0 0 0;
-  outline: none;
-  display: block;
-  width: 100%;
-  height: 72px;
-  padding: 0.5rem 1.5rem;
-  color: #8F8F8F;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 22px;
-  letter-spacing: 1px;
-  background: #585858;
-  border: 1px solid #585858;
-  box-sizing: border-box;
-  border-radius: 14px;
-  resize: none;
-}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;

@@ -23,16 +23,14 @@
           @click="currentToken(t)"
           class="section__tokens"
         >
-          <div class="section__inner">
-            <p class="icon-background">
+          <div class="box-token__inner-top">
+            <p class="icon_background">
               <img :src="require(`~/assets/icons/${network}.png`)">
             </p>
             <span>{{ network === 'ethereum'? 'ETH': 'BscScan' }}</span>
           </div>
-          <div class="section__inner-title">
-            <span class="inner-text">
-              {{ t.balance }} {{ t.symbol }}
-            </span>
+          <div class="box-token__inner-bottom">
+            {{ t.balance }} {{ t.symbol }}
           </div>
         </li>
       </ul>
@@ -97,5 +95,6 @@ export default {
   box-sizing: border-box;
   border-radius: 14px;
   margin-bottom: 20px;
+  padding: 20px;
 }
 </style>

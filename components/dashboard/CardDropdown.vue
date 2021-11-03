@@ -1,10 +1,10 @@
 <template>
-  <div class="section__lists">
-    <h2>Мои обмены</h2>
-    <ul v-if="userAddress && ListExchanges.length" class="lists" v-for="(item, id) in ListExchanges" :key="id">
-      <li class="list list-exchange">
+  <div class="dropdown">
+    <h2 class="dropdown__title">Мои обмены</h2>
+    <ul v-if="userAddress && ListExchanges.length" class="dropdown__list" v-for="(item, id) in ListExchanges" :key="id">
+      <li class="item item-exchange">
         <div class="exchange-icon">
-          <p class="icon-background">
+          <p class="icon_background">
             <img
               :src="require(`~/assets/icons/${item.network === 'ETH' ? 'ethereum' : 'bscscan'}.png`)"
               alt=""
@@ -22,7 +22,7 @@
           >
         </div>
         <div class="exchange-icon">
-          <p class="icon-background">
+          <p class="icon_background">
             <img
               :src="require(`~/assets/icons/${item.network === 'ETH' ? 'bscscan' : 'ethereum'}.png`)"
               alt=""
@@ -31,52 +31,52 @@
           <span>{{ item.network === 'ETH' ? 'BSC' : 'ETH' }}</span>
         </div>
       </li>
-      <li class="list list-user">
-        <span class="list-title">Получатель</span>
-        <span class="list-text">{{ item.recepient.slice(0, 8) }}</span>
+      <li class="item dropdown__address">
+        <span class="dropdown__item-title">Получатель</span>
+        <span class="dropdown__item-text">{{ item.recepient.slice(0, 8).concat('...') +  item.recepient.slice(-5) }}</span>
       </li>
-      <li class="list list-transaction">
-        <span class="list-title">Транзакция</span>
-        <span class="list-text">{{ item.transactionHash.slice(0, 8) }}</span>
+      <li class="item dropdown__address">
+        <span class="dropdown__item-title">Транзакция</span>
+        <span class="dropdown__item-text">{{ item.transactionHash.slice(0, 8).concat('...') + item.transactionHash.slice(-5) }}</span>
       </li>
-      <li class="list list-sum">
-        <span class="list-title">Сумма</span>
-        <span class="list-text">{{ item.amount }} {{ item.tokenSymbol }}</span>
+      <li class="item dropdown__sum">
+        <span class="dropdown__item-title">Сумма</span>
+        <span class="dropdown__item-text">{{ item.amount }} {{ item.tokenSymbol }}</span>
       </li>
-      <li class="list">
+      <li class="item">
         <button
-          class="btn btn-redeem btn-default"
+          class="btn dropdown__btn btn_default"
           :disabled="NET === item.network"
           @click.prevent="redeem(item.id, item.sender, item.recepient, item.amount, item.nonce, item.chainFrom, item.network, item.tokenSymbol)"
         >
           <img
             src="~/assets/icons/redeem.png"
             alt=""
-            class="btn-icon"
+            class="dropdown__btn-icon"
           >Выкуп
         </button>
       </li>
-      <li class="list">
-        <button class="btn btn-exchange">
+      <li class="item">
+        <button class="btn dropdown__btn-exchange">
           <a
             :href="item.network === 'ETH'? `https://rinkeby.etherscan.io/tx/${item.transactionHash}`: `https://testnet.bscscan.com/tx/${item.transactionHash}`"
           >
             <img
               src="~/assets/icons/exchange.png"
               alt=""
-              class="btn-icon"
+              class="dropdown__btn-icon"
             >
           </a>
           Обмен
         </button>
       </li>
     </ul>
-    <div class="pagination">
-      <img src="../../assets/icons/prev-page.png" alt="prev" class="prevP" @click="previousPage">
-      <span class="numerals" @click="currentPage = startPage">{{ startPage }}</span>
+    <div class="dropdown__pagination">
+      <img src="~/assets/icons/prev-page.png" alt="prev" class="dropdown__pagination_cursor" @click="previousPage">
+      <span class="dropdown__pagination-numerals" @click="currentPage = startPage">{{ startPage }}</span>
       <span>...</span>
-      <span class="numerals" @click="currentPage = endPage">{{ endPage }}</span>
-      <img src="../../assets/icons/next-page.png" alt="next" class="nextP" @click="nextPage">
+      <span class="dropdown__pagination-numerals" @click="currentPage = endPage">{{ endPage }}</span>
+      <img src="~/assets/icons/next-page.png" alt="next" class="dropdown__pagination_cursor" @click="nextPage">
     </div>
   </div>
 </template>
@@ -96,18 +96,15 @@ export default {
   mounted() {
     this.loadingData();
   },
-  updated() {
-    this.loadingData();
-  },
+  // updated() {
+  //   this.loadingData();
+  // },
   computed: {
     ...mapGetters({
       userAddress: 'wallet/userAddress',
       network: 'wallet/network',
       confirm: 'modals/confirm',
     }),
-    itemRecipient(recepient) {
-      return (recepient).split(" ").splice(8, 20, '...').join()
-    },
     NET() {
       if (this.network === 'ethereum') {
         return 'ETH'
@@ -192,79 +189,77 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section__lists {
+.dropdown {
   @include font;
   @include white;
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-.lists {
-  width: 100%;
-  @include flex-row;
-  flex-wrap: wrap;
-  padding: 20px;
-  background: #3C3C3C;
-  border-radius: 14px;
-}
-.list-title {
-  line-height: 25px;
-  color: #ABABAB;
-}
-.list-text {
-  @include font;
-  line-height: 20px;
-  @include white;
-}
-.btn-icon {
-  position: absolute;
-  margin-left: -30px;
-}
-.btn-redeem {
-  right: 13px;
-}
-.btn-exchange {
-  @include background-black;
-  @include white;
-  border: black;
-}
-.list-user,
-.list-transaction,
-.list-sum{
-  width: 170px;
-  margin-left: 25px;
-}
-.list-sum {
-  width: 100px;
-}
-.pagination {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  justify-self: end;
-  width: 207px;
-  height: 40px;
-  padding: 5px 10px;
-  background: #3C3C3C;
-  border-radius: 10px;
-  align-self: flex-end;
-}
-.numerals {
-  position: static;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 36.33px;
-  height: 30px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.numerals:hover {
-  background: #585858;
-}
-.prevP,
-.nextP {
-  cursor: pointer;
+  &__list {
+    width: 100%;
+    @include flex-row;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: #3C3C3C;
+    border-radius: 14px;
+  }
+  &__address {
+    width: 170px;
+    margin-left: 25px;
+  }
+  &__sum {
+    margin-left: 25px;
+    width: 100px;
+  }
+  &__item {
+    &-title {
+      line-height: 25px;
+      color: #ABABAB;
+    }
+    &-text {
+      @include font;
+      line-height: 20px;
+      @include white;
+    }
+  }
+  &__btn-exchange {
+    @include background-black;
+    @include white;
+    border: black;
+  }
+  &__btn-icon {
+    position: absolute;
+    margin-left: -30px;
+    margin-top: 3px;
+  }
+  &__pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    justify-self: end;
+    width: 207px;
+    height: 40px;
+    padding: 5px 10px;
+    background: #3C3C3C;
+    border-radius: 10px;
+    align-self: flex-end;
+    &-numerals {
+      position: static;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 36.33px;
+      height: 30px;
+      border-radius: 6px;
+      cursor: pointer;
+      &:hover {
+        background: #585858;
+      }
+    }
+    &_cursor {
+      cursor: pointer;
+    }
+  }
 }
 </style>

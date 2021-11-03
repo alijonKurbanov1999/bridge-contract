@@ -13,20 +13,20 @@
       </div>
       <div class="token__data">
         <span>Адрес отправителя</span>
-        <span class="clr-grey">{{ dataRedeem.sender }}</span>
+        <span class="clr-grey">{{ data.sender }}</span>
       </div>
       <div class="token__data">
         <span>Адрес получателя</span>
-        <span class="clr-grey">{{ dataRedeem.recipient }}</span>
+        <span class="clr-grey">{{ data.recipient }}</span>
       </div>
       <div class="token__data">
         <span>Токен</span>
-        <span class="clr-grey">{{ dataRedeem.symbol }}</span>
+        <span class="clr-grey">{{ data.symbol }}</span>
       </div>
       <div class="token__exchange">
         <div class="token__data">
           <span>Сумма переводов</span>
-          <span class="clr-grey">{{ dataRedeem.amount }} {{ dataRedeem.symbol }}</span>
+          <span class="clr-grey">{{ data.amount }} {{ data.symbol }}</span>
         </div>
         <div class="exchange-items">
           <div class="exchange-icon">
@@ -81,7 +81,7 @@ export default {
     ...mapGetters({
       confirm: 'modals/confirm',
       network: 'wallet/network',
-      dataRedeem: 'modals/dataRedeem',
+      data: 'modals/data',
     }),
     NET_FROM() {
       return this.network === 'ethereum' ? 'BSC' : 'ETH';
@@ -102,8 +102,8 @@ export default {
       this.$store.dispatch('modals/cancel')
     },
     confirmREDEEM() {
-      console.log('DATA OF REDEEM IS: ', this.dataRedeem)
-      this.$store.dispatch('modals/redeem', this.dataRedeem)
+      console.log('DATA OF REDEEM IS: ', this.data)
+      this.$store.dispatch('modals/redeem', this.data)
     }
   }
 };

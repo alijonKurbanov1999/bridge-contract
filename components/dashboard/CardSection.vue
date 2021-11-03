@@ -1,19 +1,17 @@
 <template>
-  <div class="section__tokens">
-    <div class="section__inner">
-      <p class="icon-background">
+  <div class="box-token">
+    <div class="box-token__inner-top">
+      <div class="icon_background">
         <img
           :src="require(`~/assets/icons/${network}.png`)"
           alt=""
-          class="ethereum-icon"
+          class="token-icon"
         >
-      </p>
+      </div>
       <span>{{ NETWORK }}</span>
     </div>
-    <div class="section__inner-title right-side">
-      <span class="inner-text">
-        {{ balance }} {{ symbol }}
-      </span>
+    <div class="box-token__inner-bottom_right-side">
+      {{ balance }} {{ symbol }}
     </div>
   </div>
 </template>
@@ -35,6 +33,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

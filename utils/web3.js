@@ -20,7 +20,6 @@ let contractInstance;
 
 let NET_CHAIN = null;
 
-
 export const initWallet = async () => {
   try {
     await ethereum.enable();
@@ -75,26 +74,26 @@ export const tokensInfo = async () => {
   }
 };
 
-export const SWAP = async ({ amount, recipient, symbol }) => {
+export const SWAP = async (payload) => {
   try {
     console.log('test from w3')
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
     const nonce = await w3.eth.getTransactionCount(userAddress);
-    amount = new BigNumber(amount).shiftedBy(+18);
-    await contractInstance.swap(amount, nonce, recipient, NET_CHAIN, symbol);
+    payload.amount = new BigNumber(payload.amount).shiftedBy(+18);
+    await contractInstance.swap(payload.amount, nonce, payload.recipient, NET_CHAIN, payload.symbol);
     return true
   } catch (err) {
     console.error('Error: ', err);
   }
 };
 
-export const REDEEM = async (dataRedeem) => {
+export const REDEEM = async (data) => {
   try {
     const contractAbstraction = await web4.getContractAbstraction(bridge);
     contractInstance = await contractAbstraction.getInstance(CurrentAddress);
-    dataRedeem.amount = (new BigNumber(dataRedeem.amount).shiftedBy(+18)).toString();
-    await contractInstance.redeem(dataRedeem.amount, dataRedeem.nonce, dataRedeem.sender, dataRedeem.chainFrom, dataRedeem.symbol, dataRedeem.v, dataRedeem.r, dataRedeem.s );
+    data.amount = (new BigNumber(data.amount).shiftedBy(+18)).toString();
+    await contractInstance.redeem(data.amount, data.nonce, data.sender, data.chainFrom, data.symbol, data.v, data.r, data.s );
     return true
   } catch (err) {
     console.error('Error: ', err);

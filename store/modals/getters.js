@@ -2,7 +2,7 @@ export default {
   confirm(state) {
     return state.confirm;
   },
-  dataRedeem(state) {
-    return state.dataRedeem
+  data(state) {
+    return state.data
   },
 };

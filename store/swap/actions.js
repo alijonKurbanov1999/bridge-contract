@@ -9,11 +9,11 @@ export default {
   closeModal({ commit }, payload) {
     commit('closeModal', payload);
   },
-  async Swap({ commit }, { userAddress, amount, recipient, symbol }) {
-    console.log('test swap 2')
-    const swap = await SWAP({
-      userAddress, amount, recipient, symbol,
-    });
-    commit(swap)
-  },
+  // async Swap({ commit }, { userAddress, amount, recipient, symbol }) {
+  //   console.log('test swap 2')
+  //   const swap = await SWAP({
+  //     userAddress, amount, recipient, symbol,
+  //   });
+  //   commit(swap)
+  // },
 }

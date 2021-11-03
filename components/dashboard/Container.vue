@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="content">
     <CardSection v-if="userAddress" />
     <CardContent />
     <CardDropdown />
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
+.content {
   @include font;
   @include flex-column;
   @include black;
