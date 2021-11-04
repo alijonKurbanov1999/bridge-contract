@@ -45,28 +45,38 @@ li {
   cursor: pointer;
   background: linear-gradient(253.94deg, #09F2C3 8.37%, #15DCE4 69.71%);
   border: 2px solid #15DCE4;
-}
-.btn_default {
-  @include white;
-  border: 2px solid #15DCE4;
-  background: #3C3C3C;
-}
-.btn:disabled{
-  cursor: not-allowed;
-  @include white;
-  border: 2px solid #000000!important;;
-  background: #3C3C3C!important;;
-}
-.btn-ocean {
-  background: linear-gradient(253.94deg, #09F2C3 8.37%, #15DCE4 69.71%);
-}
-.btn-dark {
-  opacity: 0.4;
-}
-.btn-danger {
-  border: 2px solid #ffbfbf;
-  background: #ff0000;
-  @include white;
+  &_default {
+    @include white;
+    border: 2px solid #15DCE4;
+    background: #3C3C3C;
+    &-margin {
+      margin-right: 20px;
+    }
+  }
+  &-box {
+    width: 100%;
+    height: 50px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &:disabled{
+    cursor: not-allowed;
+    @include white;
+    border: 2px solid #000000!important;;
+    background: #3C3C3C!important;;
+  }
+  &_ocean {
+    background: linear-gradient(253.94deg, #09F2C3 8.37%, #15DCE4 69.71%);
+  }
+  &-dark {
+    opacity: 0.4;
+  }
+  &-danger {
+    border: 2px solid #ffbfbf;
+    background: #ff0000;
+    @include white;
+  }
 }
 
 .modal__drop {
@@ -75,15 +85,16 @@ li {
   right: 0;
   left: 0;
   bottom: 0;
+  &.back-drop {
+    z-index: 100;
+    background-color: rgba(50, 50, 50, 0.64);
+  }
+  &.front-drop {
+    z-index: 2;
+    background-color: rgba(50, 50, 50, 0.53);
+  }
 }
-.back-drop {
-  z-index: 100;
-  background-color: rgba(50, 50, 50, 0.64);
-}
-.front-drop {
-  z-index: 2;
-  background-color: rgba(50, 50, 50, 0.53);
-}
+
 .modal__window {
   position: fixed;
   top: 30%;
@@ -96,34 +107,35 @@ li {
   padding: 30px 30px 30px 150px;
   z-index: 1000;
   transform: translateX(-50%);
+  h3 {
+    @include font;
+    @include white;
+    font-size: 22px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+  p {
+    @include font;
+    @include white;
+    line-height: 15px;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;
+  }
 }
+.close-small {
+   position: fixed;
+   top: 10px;
+   right: 10px;
+   cursor: pointer;
+ }
 .successfully {
   background: #6f6f6f;
 }
 .error {
-  color: #F55572;
+  background: #F55572;
 }
-.modal__window  h3 {
-  @include font;
-  @include white;
-  font-size: 22px;
-  letter-spacing: 1px;
-  margin-bottom: 15px;
-}
-.modal__window  p {
-  @include font;
-  @include white;
-  line-height: 15px;
-  letter-spacing: 2px;
-  margin: 0;
-  padding: 0;
-}
-.modal__window  .close-small {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
+
 .round img:first-child{
   position: fixed;
   top: -43px;
@@ -174,19 +186,20 @@ li {
 .token__title {
   @include flex-row;
   margin-bottom: 30px;
+  h2 {
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 28px;
+    margin: 0;
+    @include white;
+  }
 }
 .close {
   cursor: pointer;
 }
-.token__title h2 {
-  font-family: Montserrat, sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 23px;
-  line-height: 28px;
-  margin: 0;
-  @include white;
-}
+
 .item  {
   @include font;
   @include flex-column;

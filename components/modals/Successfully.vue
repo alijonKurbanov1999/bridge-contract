@@ -4,7 +4,7 @@
       class="modal__drop back-drop"
       @click="close"
     />
-    <div class="modal__window successfully">
+    <div class="modal__window modal__window_successfully">
       <h3>Транзакция прошла успешно</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       <span
@@ -13,7 +13,7 @@
       ><img
         src="~/assets/img/successful/close_small.png"
         alt="#"
-        class="close"
+        class="close-small"
       ></span>
       <span class="round"><img
         src="~/assets/img/successful/Union.png"
@@ -35,6 +35,3 @@ export default {
   name: 'Successful',
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

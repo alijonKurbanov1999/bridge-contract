@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="modal__drop back-drop"/>
-    <div class="modal__confirm">
+    <div class="modal-confirm">
       <div class="token__title">
         <h2>Подтверждение обмена</h2>
         <img
@@ -13,15 +13,15 @@
       </div>
       <div class="token__data">
         <span>Адрес отправителя</span>
-        <span class="clr-grey">{{ data.sender }}</span>
+        <span class="token__data_color">{{ data.sender }}</span>
       </div>
       <div class="token__data">
         <span>Адрес получателя</span>
-        <span class="clr-grey">{{ data.recipient }}</span>
+        <span class="token__data_color">{{ data.recipient }}</span>
       </div>
       <div class="token__data">
         <span>Токен</span>
-        <span class="clr-grey">{{ data.symbol }}</span>
+        <span class="token__data_color">{{ data.symbol }}</span>
       </div>
       <div class="token__exchange">
         <div class="token__data">
@@ -30,13 +30,13 @@
         </div>
         <div class="exchange-items">
           <div class="exchange-icon">
-            <p class="icon-background">
+            <p class="icon_background">
               <img
                 :src="require(`~/assets/icons/${IMG_NET_FROM}.png`)"
                 alt=""
               >
             </p>
-            <span class="clr-grey">{{ NET_FROM }}</span>
+            <span class="token__data_color">{{ NET_FROM }}</span>
           </div>
           <div>
             <img
@@ -47,25 +47,25 @@
             >
           </div>
           <div class="exchange-icon">
-            <p class="icon-background">
+            <p class="icon_background">
               <img
                 :src="require(`~/assets/icons/${IMG_NET_TO}.png`)"
                 alt=""
               >
             </p>
-            <span class="clr-grey">{{ NET_TO }}</span>
+            <span class="token__data_color">{{ NET_TO }}</span>
           </div>
         </div>
       </div>
       <div class="token__data">
         <span>Комиссия</span>
-        <span class="clr-grey">0</span>
+        <span class="token__data_color">0</span>
       </div>
       <div class="btn-box">
-        <button class="btn btn-default mr-20" @click="cancel">
+        <button class="btn btn_default btn_default-margin" @click="cancel">
           Отменить
         </button>
-        <button class="btn btn-ocean" @click.prevent="confirmREDEEM">
+        <button class="btn btn_ocean" @click.prevent="confirmREDEEM">
           Подтвердить
         </button>
       </div>
@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal__confirm {
+.modal-confirm {
   @include font;
   position: fixed;
   top: 15%;
@@ -139,6 +139,12 @@ export default {
   border: 1px solid #585858;
   box-sizing: border-box;
   border-radius: 14px;
+  &_color {
+    @include font;
+    line-height: 20px;
+    letter-spacing: 1px;
+    color: #C7C7C7;
+  }
 }
 .token__exchange {
   position: relative;
@@ -157,21 +163,5 @@ export default {
   align-items: center;
   margin: 30px 0 auto 20px;
 }
-.btn-box {
-  width: 100%;
-  height: 50px;
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
-}
-.mr-20 {
-  margin-right: 20px;
-}
-.clr-grey {
-  @include font;
-  line-height: 20px;
-  letter-spacing: 1px;
-  color: #C7C7C7;
 
-}
 </style>
