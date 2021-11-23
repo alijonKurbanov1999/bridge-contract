@@ -16,6 +16,10 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
+###Main Page 
+
+![image](https://user-images.githubusercontent.com/71018530/143051842-f072777e-815f-4fc5-accd-b6b7e81b6545.png)
+
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
