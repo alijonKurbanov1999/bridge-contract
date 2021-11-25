@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Confirm v-if="confirm"/>
+    <Confirm v-if="confirm === 'swap' || confirm === 'redeem'"/>
     <ChooseToken v-if="modalTokens"/>
-<!--    <Successful />-->
-<!--    <Error />-->
+    <Successful v-if="successModal"/>
+    <Error v-if="errorModal"/>
   </div>
 </template>
 
@@ -20,6 +20,8 @@ export default {
     ...mapGetters({
       modalTokens: 'swap/modalTokens',
       confirm: 'modals/confirm',
+      successModal: 'modals/successModal',
+      errorModal: 'modals/errorModal'
     })
   },
   components: {Confirm, ChooseToken, Successful, Error},

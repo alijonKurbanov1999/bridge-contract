@@ -116,11 +116,12 @@ export default {
     Swap() {
       console.log('start!')
       console.log('UserAddress: ', this.userAddress);
-      this.$store.dispatch('modals/Swap',{
+      this.$store.dispatch('modals/confirmation',{
         sender: this.userAddress,
         amount: this.amount,
         recipient: this.recipient,
         symbol: this.symbol,
+        confirmType: 'swap'
       });
     },
    },

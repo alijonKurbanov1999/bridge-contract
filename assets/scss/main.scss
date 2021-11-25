@@ -101,6 +101,7 @@ li {
   left: 50%;
   @include font;
   @include white;
+  @include background-black;
   width: 522px;
   height: 162px;
   border-radius: 14px;

@@ -1,4 +1,6 @@
 export default () => ({
-  confirm: false,
-  data: { }
+  confirm: '',
+  data: { },
+  successModal: false,
+  errorModal: false
 });

@@ -113,25 +113,6 @@ export default {
       } else
         return false
     }
-    // urlSwap(net, hash) {
-    //   if(net === 'ETH') {
-    //     return `https://rinkeby.etherscan.io/tx/${hash}`
-    //   } else if (net === 'BSC') {
-    //     return `https://testnet.bscscan.com/tx/${hash}`
-    //   }  else { return  ''}
-    // }
-    // NET_FROM(net) {
-    //   return net === 'ETH' ? 'ETH' : 'BSC';
-    // },
-    // NET_TO(net) {
-    //   return net === 'ETH' ? 'BSC' : 'ETH';
-    // },
-    // IMG_NET_FROM(net) {
-    //   return net=== 'ETH' ? 'ethereum' : 'bscscan';
-    // },
-    // IMG_NET_TO(net) {
-    //   return net === 'ETH' ? 'bscscan' : 'ethereum'
-    // }
   },
   methods: {
     async loadingData() {
@@ -162,8 +143,8 @@ export default {
       catch(err) {
         console.error('Error: ', err)
       }
-      await this.$store.dispatch('modals/confirmRedeem', {
-        sender, recepient, amount, nonce, chainFrom, symbol, v, r, s,
+      await this.$store.dispatch('modals/confirmation', {
+        sender, recepient, amount, nonce, chainFrom, symbol, v, r, s, confirmType: 'redeem'
       })
     },
     previousPage() {

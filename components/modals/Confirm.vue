@@ -65,7 +65,7 @@
         <button class="btn btn_default btn_default-margin" @click="cancel">
           Отменить
         </button>
-        <button class="btn btn_ocean" @click.prevent="confirmREDEEM">
+        <button class="btn btn_ocean" @click.prevent="submitConfirm">
           Подтвердить
         </button>
       </div>
@@ -79,7 +79,6 @@ export default {
   name: 'Confirm',
   computed: {
     ...mapGetters({
-      confirm: 'modals/confirm',
       network: 'wallet/network',
       data: 'modals/data',
     }),
@@ -101,9 +100,9 @@ export default {
     cancel() {
       this.$store.dispatch('modals/cancel')
     },
-    confirmREDEEM() {
+    submitConfirm() {
       console.log('DATA OF REDEEM IS: ', this.data)
-      this.$store.dispatch('modals/redeem', this.data)
+      this.$store.dispatch('modals/submitData', this.data)
     }
   }
 };

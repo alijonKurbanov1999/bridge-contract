@@ -5,4 +5,10 @@ export default {
   data(state) {
     return state.data
   },
+  successModal(state) {
+    return state.successModal
+  },
+  errorModal(state) {
+    return state.errorModal
+  }
 };
